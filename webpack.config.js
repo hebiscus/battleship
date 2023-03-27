@@ -8,7 +8,11 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: 'index_bundle.js',
   },
-  plugins: [new HtmlWebpackPlugin(), new ESLintPlugin()],
+  plugins: [new HtmlWebpackPlugin(
+            {
+              title: 'Battleship'
+            }), 
+          new ESLintPlugin()],
   mode: 'development',
   module: {
     rules: [
