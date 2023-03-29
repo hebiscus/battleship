@@ -3,6 +3,9 @@
 
 
 export const shipFactory = (length, hits, sinkStatus) => {
+    if (typeof length !== "number" || typeof hits !== "number" || hits > length) {
+        return "invalid values";
+    }
     let currentLength = length;
     let currentHits = hits;
     let currentSinkStatus = sinkStatus;
@@ -24,5 +27,5 @@ export const shipFactory = (length, hits, sinkStatus) => {
         return currentSinkStatus;
     };
     
-    return {length, hits, sinkStatus, changeLength, hit, isSunk}
+    return {length, hits, sinkStatus, changeLength, hit, isSunk};
 }
