@@ -15,8 +15,3 @@ export const gameBoardFactory = (missedAttacks) => {
     
     return {missedAttacks, currentBoard, createBoard, placeShip};
 }
-
-// checking if this works
-// const test = gameBoardFactory();
-// test.createBoard();
-// console.log(test.currentBoard);

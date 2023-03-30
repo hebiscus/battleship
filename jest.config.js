@@ -103,7 +103,9 @@ module.exports = {
   // projects: undefined,
 
   // Use this configuration option to add custom reporters to Jest
-  // reporters: undefined,
+  // reporters: [
+  //   ['jest-slow-test-reporter', {"numTests": 1, "warnOnSlowerThan": 300, "color": true}]
+  // ],
 
   // Automatically reset mock state before every test
   // resetMocks: false,
@@ -182,7 +184,7 @@ module.exports = {
   // unmockedModulePathPatterns: undefined,
 
   // Indicates whether each individual test should be reported during the run
-  // verbose: undefined,
+  // verbose: false,
 
   // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
   // watchPathIgnorePatterns: [],
