@@ -6,24 +6,21 @@ export const shipFactory = (length, hits, sinkStatus) => {
     if ((typeof length !== "number" ) || (typeof hits !== "number") || (hits > length)) {
         return "invalid values";
     }
-    const currentLength = length;
-    const currentHits = hits;
-    let currentSinkStatus = sinkStatus;
     
     const changeLength = function()  {
         this.length -= 1;
     };
-    const hit = function()  {
+    const addHit = function()  {
         this.hits += 1;
     };
-    const isSunk = () => {
-        if (currentLength === currentHits) {
-            currentSinkStatus = true;
+    const isSunk = function() {
+        if (this.length === this.hits) {
+            this.sinkStatus = true;
         } else {
-            currentSinkStatus = false;
+            this.sinkStatus = false;
         }
-        return currentSinkStatus;
+        return this.sinkStatus;
     };
     
-    return {length, hits, sinkStatus, changeLength, hit, isSunk};
+    return {length, hits, sinkStatus, changeLength, addHit, isSunk};
 }

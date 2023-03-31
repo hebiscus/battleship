@@ -28,27 +28,20 @@ it("deletes -1 of current length", () => {
 
 it("adds +1 hit to hits on ship", () => {
     const newShip = shipFactory(4, 3);
-    newShip.hit();
+    newShip.addHit();
     expect(newShip.hits).toBe(4);
 });
 
-it("returns false if ship is not sunk", () => {
-    const newShip = shipFactory(5, 3);
-    expect(newShip.isSunk()).toBeFalsy()
-})
 
-it("returns true if ship is sunk", () => {
-    const newShip = shipFactory(3, 3);
-    expect(newShip.isSunk()).toBeTruthy()
-})
+describe("sinking the ship", () => {
+    const afloatShip = shipFactory(5, 3);
+    const sunkedShip = shipFactory(3, 3);
+    
+    it("returns false if ship is not sunk", () => {
+        expect(afloatShip.isSunk()).toBeFalsy();
+    });
 
-it("test for name", () => {
-    const newShip = shipFactory(3, 3);
-    expect(newShip.test()).toBe(3);
-})
-
-it("test for name", () => {
-    const newShip = shipFactory(3, 3);
-    newShip.change();
-    expect(newShip.length).toBe(4);
-})
+    it("returns true if ship is sunk", () => {
+        expect(sunkedShip.isSunk()).toBeTruthy();
+    });
+});

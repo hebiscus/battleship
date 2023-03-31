@@ -6,7 +6,11 @@ it("displays current gameboard state", () => {
     expect(playerBoard.currentBoard).toEqual([]);
 });
 
-it.skip("createbaord?", () => {})
+it("checks if board was created correctly", () => {
+    const testBoard = gameBoardFactory();
+    testBoard.createBoard();
+    expect(testBoard.currentBoard.length).toBe(10);
+})
 
 
 it("places ship one the board", () => {
