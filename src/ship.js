@@ -22,5 +22,6 @@ export const shipFactory = (length, hits, sinkStatus) => {
         return this.sinkStatus;
     };
     
+    
     return {length, hits, sinkStatus, changeLength, addHit, isSunk};
 }

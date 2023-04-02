@@ -17,9 +17,37 @@ export const gameBoardFactory = (missedAttacks) => {
         };
     };
 
-     const placeShip = (ship, coordinates) => {
+     const placeShip = (ship, coordinate, direction) => {
+        const startingPoint = isCoordinateValid(coordinate);
+        const shipLength = ship.length;
+        const endPoint = 
 
      }
+
+     const shipCoordinates = function () {
+
+     }
+
+     const determineEnd = function(startingPoint, direction) {
+
+     }
+
+     const isCoordinateValid = function(coordinate) {
+        const coordinateString = JSON.stringify(coordinate);
+        const boardString = JSON.stringify(testBoard.currentBoard);
+        if (boardString.includes(coordinateString)) {
+            return coordinate;
+        }
+        return "coordinate doesn't exist on the board";
+     }
+
+     const receiveAttack = function() {
+
+     };
     
-    return {missedAttacks, currentBoard, createBoard, placeShip};
+    return {missedAttacks, currentBoard, createBoard, placeShip, receiveAttack};
 }
+
+const testBoard = gameBoardFactory();
+testBoard.createBoard();
+console.log(JSON.stringify(testBoard.currentBoard));
