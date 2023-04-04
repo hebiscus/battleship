@@ -19,37 +19,37 @@ export const gameBoardFactory = (missedAttacks) => {
         };
     };
 
-     const placeShip = (ship, coordinate, direction) => {
-        const startingPoint = isCoordinateValid(coordinate);
+     const placeShip = function(ship, coordinate, direction) {
+        const startingPoint = isCoordinateValid.call(this, coordinate);
         const shipLength = ship.length;
-        // const endPoint = determineShipEnd(shipLength, startingPoint, direction);
-        const shipCoordinates = getShipCoordinates(shipLength, startingPoint, direction)
+        const shipCoordinates = getShipCoordinates.call(this, shipLength, startingPoint, direction)
         return shipCoordinates;
      }
 
      const getShipCoordinates = function (shipLength, startingPoint, direction) {
-        const coordinates = [];
+        const coordinates = [startingPoint];
         if (direction === "horizontal") {
-            const row = testBoard.currentBoard[startingPoint[0]];
+            const row = this.currentBoard[startingPoint[0]];
             const letter = startingPoint[1];
-            const startingPointIndex = row.findIndex(coordinate => coordinate[1] == letter);
+            const startingPointIndex = row.findIndex(coordinate => coordinate[1] === letter);
             for (let i = 1; i < shipLength; i++) {
                 const nextCoordinate = row[startingPointIndex + i];
-                const validatedCoordinate = isCoordinateValid(nextCoordinate);
+                const validatedCoordinate = isCoordinateValid.call(this, nextCoordinate);
                 coordinates.push(validatedCoordinate);
             }
             return coordinates;
         }
-        // direction column to be done here :)
-     }
-
-     const determineShipEnd = function(shipLength, startingPoint, direction) {
-        
+        const column = this.currentBoard[startingPoint[1]];
+        const row = startingPoint[0];
+        const startingPointIndex = column.findIndex()
+        for (let i = 1; i < shipLength; i++) {
+            
+        }
      }
 
      const isCoordinateValid = function(coordinate) {
         const coordinateString = JSON.stringify(coordinate);
-        const boardString = JSON.stringify(testBoard.currentBoard);
+        const boardString = JSON.stringify(this.currentBoard);
         if (boardString.includes(coordinateString)) {
             return coordinate;
         }
@@ -65,8 +65,9 @@ export const gameBoardFactory = (missedAttacks) => {
 
 const testBoard = gameBoardFactory();
 testBoard.createBoard();
-console.log(JSON.stringify(testBoard.currentBoard));
-console.log(testBoard.currentBoard[4]);
+// console.log(JSON.stringify(testBoard.currentBoard));
+// console.log(testBoard.currentBoard[4]);
+
 // console.log(JSON.stringify(testBoard.currentBoard[4]))
 // const test = JSON.stringify([4,"E"])
 // console.log(JSON.stringify(testBoard.currentBoard[4]).indexOf(test));
@@ -75,4 +76,4 @@ console.log(testBoard.currentBoard[4]);
 // const findElement = currentRow.find(element => element[1] == "B");
 // console.log(findElement)
 const testShip = shipFactory(3,0)
-console.log(testBoard.placeShip(testShip, [4,"J"], "horizontal"));
+console.log(testBoard.placeShip(testShip, [4,"A"], "horizontal"));
