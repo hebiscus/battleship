@@ -24,9 +24,16 @@ export const gameBoardFactory = (missedAttacks) => {
         const shipLength = ship.length;
         const shipCoordinates = getShipCoordinates.call(this, shipLength, startingPoint, direction);
         if (shipCoordinates.length !== shipLength) {
-            return "ship doesn't fit on the board"
+            return "ship doesn't fit on the board";
         }
-        return shipCoordinates;
+        // return shipCoordinates;
+        for (let i = 0; i < shipCoordinates.length; i++) {
+            console.log(shipCoordinates[i])
+            const coordinateRow = shipCoordinates[i][0];
+            const coordinateColumn = shipCoordinates[i][1];
+            const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn)
+            this.currentBoard[coordinateRow][coordinateIndex] = ["shipName", "NH"];
+        };
      }
 
      const getShipCoordinates = function (shipLength, startingPoint, direction) {
@@ -40,7 +47,7 @@ export const gameBoardFactory = (missedAttacks) => {
                 const validatedCoordinate = isCoordinateValid.call(this, nextCoordinate);
                 if (typeof validatedCoordinate !== "string") {
                     coordinates.push(validatedCoordinate);
-                }
+                };
             }
             return coordinates;
         }
@@ -86,3 +93,4 @@ testBoard.createBoard();
 const testShip = shipFactory(4,0)
 // console.log(testBoard.placeShip(testShip, [4,"A"], "horizontal"));
 console.log(testBoard.placeShip(testShip, [5,"A"], "horizontal"));
+console.log(testBoard.currentBoard[5]);

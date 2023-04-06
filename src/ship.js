@@ -6,6 +6,7 @@ export const shipFactory = (length, hits, sinkStatus) => {
     if ((typeof length !== "number" ) || (typeof hits !== "number") || (hits > length)) {
         return "invalid values";
     }
+
     
     const changeLength = function()  {
         this.length -= 1;
