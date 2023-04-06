@@ -24,7 +24,7 @@ export const gameBoardFactory = (missedAttacks) => {
         const shipLength = ship.length;
         const shipCoordinates = getShipCoordinates.call(this, shipLength, startingPoint, direction);
         if (shipCoordinates.length !== shipLength) {
-            return "ship doesn't fit on the board";
+            throw "ship doesn't fit on the board";
         }
         for (let i = 0; i < shipCoordinates.length; i++) {
             const coordinateRow = shipCoordinates[i][0];
@@ -88,7 +88,8 @@ testBoard.createBoard();
 // const currentLetter = "B"
 // const findElement = currentRow.find(element => element[1] == "B");
 // console.log(findElement)
-// const testShip = shipFactory(4,0, "kap")
+const testShip = shipFactory(4,0, "kap")
 // console.log(testBoard.placeShip(testShip, [3,"A"], "horizontal"));
 // console.log(testBoard.placeShip(testShip, [5,"A"], "horizontal"));
 // console.log(testBoard.currentBoard);
+// console.log(testBoard.placeShip(testShip, [3,"J"], "horizontal"))

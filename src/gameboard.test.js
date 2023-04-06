@@ -32,28 +32,18 @@ describe("placing a ship on the board", () => {
         expect(boardPlaces).toEqual([["destroyer", "NH"], ["destroyer", "NH"], ["destroyer", "NH"]])
     });
 
-    it.only("vertical ship within the board is properly placed", () => {
-        testBoard.placeShip(perfectShip, [3,"B"], "horizontal");
-        const boardPlaces = [testBoard.currentBoard[3][1], testBoard.currentBoard[3][2], testBoard.currentBoard[3][3]];
-        console.log(testBoard.currentBoard)
+    it("vertical ship within the board is properly placed", () => {
+        testBoard.placeShip(perfectShip, [3,"B"], "vertical");
+        const boardPlaces = [testBoard.currentBoard[3][1], testBoard.currentBoard[4][1], testBoard.currentBoard[5][1]];
         expect(boardPlaces).toEqual([["destroyer", "NH"], ["destroyer", "NH"], ["destroyer", "NH"]]);
     });
 
-});  
-
-
-describe.skip("placing a ship on the board", () => {
-    const playerBoard = gameBoardFactory();
-    const niceShip = shipFactory(3,0);
-    const mockCallback = jest.fn(x => 42 + x);
-
-    // it("returns coordinate if exists on the board", () => {
-    //     playerBoard.createBoard();
-    //     playerBoard.placeShip(niceShip, [4,"H"]);
-    // })
-
-    it.skip("places ship one the board correctly", () => {
-        expect(playerBoard.placeShip(niceShip, [3, "B"])).toEqual();
+    it("ship that doesn't fit on the board horizontally cannot be placed", () => {
+        expect(() => testBoard.placeShip(perfectShip, [3,"J"], "horizontal")).toThrow("coordinate doesn't exist on the board");
     });
-});
+
+    it("ship that doesn't fit on the board vertically cannot be placed", () => {
+        expect(() => testBoard.placeShip(perfectShip, [9,"J"], "vertical")).toThrow("ship doesn't fit on the board");
+    })
+});  
 
