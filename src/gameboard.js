@@ -22,7 +22,10 @@ export const gameBoardFactory = (missedAttacks) => {
      const placeShip = function(ship, coordinate, direction) {
         const startingPoint = isCoordinateValid.call(this, coordinate);
         const shipLength = ship.length;
-        const shipCoordinates = getShipCoordinates.call(this, shipLength, startingPoint, direction)
+        const shipCoordinates = getShipCoordinates.call(this, shipLength, startingPoint, direction);
+        if (shipCoordinates.length !== shipLength) {
+            return "ship doesn't fit on the board"
+        }
         return shipCoordinates;
      }
 
@@ -35,16 +38,21 @@ export const gameBoardFactory = (missedAttacks) => {
             for (let i = 1; i < shipLength; i++) {
                 const nextCoordinate = row[startingPointIndex + i];
                 const validatedCoordinate = isCoordinateValid.call(this, nextCoordinate);
-                coordinates.push(validatedCoordinate);
+                if (typeof validatedCoordinate !== "string") {
+                    coordinates.push(validatedCoordinate);
+                }
             }
             return coordinates;
         }
-        const column = this.currentBoard[startingPoint[1]];
-        const row = startingPoint[0];
-        const startingPointIndex = column.findIndex()
-        for (let i = 1; i < shipLength; i++) {
-            
-        }
+        const column = startingPoint[1];
+        const startingRow = startingPoint[0];
+        this.currentBoard.forEach(row => {
+            const sameLetter = row.find(coordinate => coordinate[1] === column);
+            if (sameLetter[0] > startingRow && coordinates.length < shipLength) {
+                coordinates.push(sameLetter);
+            }
+        });
+        return coordinates;
      }
 
      const isCoordinateValid = function(coordinate) {
@@ -75,5 +83,6 @@ testBoard.createBoard();
 // const currentLetter = "B"
 // const findElement = currentRow.find(element => element[1] == "B");
 // console.log(findElement)
-const testShip = shipFactory(3,0)
-console.log(testBoard.placeShip(testShip, [4,"A"], "horizontal"));
+const testShip = shipFactory(4,0)
+// console.log(testBoard.placeShip(testShip, [4,"A"], "horizontal"));
+console.log(testBoard.placeShip(testShip, [5,"A"], "horizontal"));
