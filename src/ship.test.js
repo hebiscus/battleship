@@ -35,13 +35,13 @@ it("adds +1 hit to hits on ship", () => {
 
 describe("sinking the ship", () => {
     const afloatShip = shipFactory(5, 3);
-    const sunkedShip = shipFactory(3, 3);
+    const sunkenShip = shipFactory(3, 3);
     
     it("returns false if ship is not sunk", () => {
         expect(afloatShip.isSunk()).toBeFalsy();
     });
 
     it("returns true if ship is sunk", () => {
-        expect(sunkedShip.isSunk()).toBeTruthy();
+        expect(sunkenShip.isSunk()).toBeTruthy();
     });
 });

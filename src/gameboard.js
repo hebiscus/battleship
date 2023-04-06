@@ -26,13 +26,11 @@ export const gameBoardFactory = (missedAttacks) => {
         if (shipCoordinates.length !== shipLength) {
             return "ship doesn't fit on the board";
         }
-        // return shipCoordinates;
         for (let i = 0; i < shipCoordinates.length; i++) {
-            console.log(shipCoordinates[i])
             const coordinateRow = shipCoordinates[i][0];
             const coordinateColumn = shipCoordinates[i][1];
-            const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn)
-            this.currentBoard[coordinateRow][coordinateIndex] = ["shipName", "NH"];
+            const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn);
+            this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, "NH"];
         };
      }
 
@@ -68,7 +66,7 @@ export const gameBoardFactory = (missedAttacks) => {
         if (boardString.includes(coordinateString)) {
             return coordinate;
         }
-        return "coordinate doesn't exist on the board";
+        throw "coordinate doesn't exist on the board";
      }
 
      const receiveAttack = function() {
@@ -90,7 +88,7 @@ testBoard.createBoard();
 // const currentLetter = "B"
 // const findElement = currentRow.find(element => element[1] == "B");
 // console.log(findElement)
-const testShip = shipFactory(4,0)
-// console.log(testBoard.placeShip(testShip, [4,"A"], "horizontal"));
-console.log(testBoard.placeShip(testShip, [5,"A"], "horizontal"));
-console.log(testBoard.currentBoard[5]);
+// const testShip = shipFactory(4,0, "kap")
+// console.log(testBoard.placeShip(testShip, [3,"A"], "horizontal"));
+// console.log(testBoard.placeShip(testShip, [5,"A"], "horizontal"));
+// console.log(testBoard.currentBoard);

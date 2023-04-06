@@ -13,9 +13,33 @@ it("checks if board was created correctly", () => {
     expect(testBoard.currentBoard.length).toBe(10);
 });
 
-describe.skip("displaying proper starting point and ending point of a ship", () => {
+describe("placing a ship on the board", () => {
+    const testBoard = gameBoardFactory();
+    const perfectShip = shipFactory(3,0,"destroyer");
 
-})  
+    beforeEach(() => {
+        testBoard.createBoard();;
+    });
+
+    afterEach(() => {
+        testBoard.currentBoard == [];
+    });
+    
+
+    it("horizontal ship within the board is properly placed", () => {
+        testBoard.placeShip(perfectShip, [3,"A"], "horizontal");
+        const boardPlaces = [testBoard.currentBoard[3][0], testBoard.currentBoard[3][1], testBoard.currentBoard[3][2]];
+        expect(boardPlaces).toEqual([["destroyer", "NH"], ["destroyer", "NH"], ["destroyer", "NH"]])
+    });
+
+    it.only("vertical ship within the board is properly placed", () => {
+        testBoard.placeShip(perfectShip, [3,"B"], "horizontal");
+        const boardPlaces = [testBoard.currentBoard[3][1], testBoard.currentBoard[3][2], testBoard.currentBoard[3][3]];
+        console.log(testBoard.currentBoard)
+        expect(boardPlaces).toEqual([["destroyer", "NH"], ["destroyer", "NH"], ["destroyer", "NH"]]);
+    });
+
+});  
 
 
 describe.skip("placing a ship on the board", () => {

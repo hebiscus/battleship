@@ -2,11 +2,12 @@
 /* eslint-disable import/prefer-default-export */
 
 
-export const shipFactory = (length, hits, sinkStatus) => {
+export const shipFactory = (length, hits, type, sinkStatus) => {
     if ((typeof length !== "number" ) || (typeof hits !== "number") || (hits > length)) {
         return "invalid values";
     }
 
+    const shipType = type;
     
     const changeLength = function()  {
         this.length -= 1;
@@ -22,7 +23,20 @@ export const shipFactory = (length, hits, sinkStatus) => {
         }
         return this.sinkStatus;
     };
+
+    // const isValidType = (type) => {
+    //     return type === "carrier" || "battleship" || "destroyer" || "submarine" || "patrol boat"
+    // }
     
-    
-    return {length, hits, sinkStatus, changeLength, addHit, isSunk};
+    return {
+        length, 
+        hits, 
+        sinkStatus, 
+        changeLength, 
+        addHit, 
+        isSunk,
+        get shipType() {
+            return shipType;
+        },
+    };
 }
