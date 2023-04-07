@@ -69,8 +69,16 @@ export const gameBoardFactory = (missedAttacks) => {
         throw "coordinate doesn't exist on the board";
      }
 
-     const receiveAttack = function() {
-
+     const receiveAttack = function(coordinate) {
+        const coordinateRow = coordinate[0];
+        const coordinateColumn = coordinate[1];
+        const coordinateIndexBoard = this.currentBoard[coordinateRow].findIndex(value => value[1] === coordinateColumn);
+        const coordinateOnBoard = this.currentBoard[coordinateRow[coordinateIndexBoard]]
+        if (coordinateOnBoard[1] === "NH") {
+            // attack was succesfull code
+        } else {
+            
+        }
      };
     
     return {missedAttacks, currentBoard, createBoard, placeShip, receiveAttack};

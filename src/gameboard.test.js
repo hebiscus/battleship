@@ -47,3 +47,23 @@ describe("placing a ship on the board", () => {
     })
 });  
 
+describe("receiving an attack", () => {
+   const testBoard = gameBoardFactory();
+   const destroyer = shipFactory(3,0,"destroyer");
+
+    beforeEach(() => {
+        testBoard.createBoard();
+    });
+
+    afterEach(() => {
+        testBoard.currentBoard == [];
+    });
+
+    it("logs H for a hit on a ship's coordinate", () => {
+        testBoard.placeShip(destroyer, [6,"C"], "vertical");
+        testBoard.receiveAttack([6,"C"]);
+        expect(testBoard.currentBoard[6][2]).toEqual(["destroyer", "H"]);
+    })
+})
+
+
