@@ -30,7 +30,7 @@ export const gameBoardFactory = (missedAttacks) => {
             const coordinateRow = shipCoordinates[i][0];
             const coordinateColumn = shipCoordinates[i][1];
             const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn);
-            this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, `NH-${i}`];
+            this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, "NH"];
         }; 
      }
 
@@ -71,14 +71,13 @@ export const gameBoardFactory = (missedAttacks) => {
 
      const receiveAttack = function(coordinate) {
         const coordinateRow = coordinate[0];
-        const coordinateColumn = coordinate[1];
-        const coordinateIndexBoard = this.currentBoard[coordinateRow].findIndex(value => value[1] === coordinateColumn);
-        const coordinateOnBoard = this.currentBoard[coordinateRow[coordinateIndexBoard]]
-        if (coordinateOnBoard[1] === "NH") {
-            // attack was succesfull code
-        } else {
-            
-        }
+        const coordinateValue = coordinate[1];
+        const columnNumbers = ["A","B","C", "D", "E", "F", "G", "H", "I", "J"];
+        const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);
+        const coordinateOnBoard = this.currentBoard[coordinateRow][coordinateBoardIndex];
+        if (coordinateOnBoard[1].includes("NH")) {
+            this.currentBoard[coordinateRow][coordinateBoardIndex][1] = "H";
+        } 
      };
     
     return {missedAttacks, currentBoard, createBoard, placeShip, receiveAttack};

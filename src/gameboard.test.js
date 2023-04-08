@@ -29,13 +29,13 @@ describe("placing a ship on the board", () => {
     it("horizontal ship within the board is properly placed", () => {
         testBoard.placeShip(perfectShip, [3,"A"], "horizontal");
         const boardPlaces = [testBoard.currentBoard[3][0], testBoard.currentBoard[3][1], testBoard.currentBoard[3][2]];
-        expect(boardPlaces).toEqual([[perfectShip.shipType, "NH-0"], [perfectShip.shipType, "NH-1"], [perfectShip.shipType, "NH-2"]])
+        expect(boardPlaces).toEqual([[perfectShip.shipType, "NH"], [perfectShip.shipType, "NH"], [perfectShip.shipType, "NH"]])
     });
 
     it("vertical ship within the board is properly placed", () => {
         testBoard.placeShip(perfectShip, [3,"B"], "vertical");
         const boardPlaces = [testBoard.currentBoard[3][1], testBoard.currentBoard[4][1], testBoard.currentBoard[5][1]];
-        expect(boardPlaces).toEqual([["destroyer", "NH-0"], ["destroyer", "NH-1"], ["destroyer", "NH-2"]]);
+        expect(boardPlaces).toEqual([["destroyer", "NH"], ["destroyer", "NH"], ["destroyer", "NH"]]);
     });
 
     it("ship that doesn't fit on the board horizontally cannot be placed", () => {
@@ -47,7 +47,7 @@ describe("placing a ship on the board", () => {
     })
 });  
 
-describe.skip("receiving an attack", () => {
+describe("receiving an attack", () => {
    const testBoard = gameBoardFactory();
    const destroyer = shipFactory(3,0,"destroyer");
 
@@ -62,7 +62,7 @@ describe.skip("receiving an attack", () => {
     it("logs H for a hit on a ship's coordinate", () => {
         testBoard.placeShip(destroyer, [6,"C"], "vertical");
         testBoard.receiveAttack([6,"C"]);
-        expect(testBoard.currentBoard[6][2]).toEqual([destroyer.type, "H"]);
+        expect(testBoard.currentBoard[6][2]).toEqual([destroyer.shipType, "H"]);
     })
 })
 
