@@ -76,8 +76,10 @@ export const gameBoardFactory = (missedAttacks) => {
         const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);
         const coordinateOnBoard = this.currentBoard[coordinateRow][coordinateBoardIndex];
         if (coordinateOnBoard[1].includes("NH")) {
-            this.currentBoard[coordinateRow][coordinateBoardIndex][1] = "H";
-        } 
+            coordinateOnBoard[1] = "H";
+        } else {
+
+        }
      };
     
     return {missedAttacks, currentBoard, createBoard, placeShip, receiveAttack};

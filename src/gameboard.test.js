@@ -63,6 +63,11 @@ describe("receiving an attack", () => {
         testBoard.placeShip(destroyer, [6,"C"], "vertical");
         testBoard.receiveAttack([6,"C"]);
         expect(testBoard.currentBoard[6][2]).toEqual([destroyer.shipType, "H"]);
+    });
+
+    it.skip("changes ship's length after a hit", () => {
+        testBoard.placeShip(destroyer, [5,"D"], "horizontal");
+        testBoard.receiveAttack([6,"C"]);
     })
 })
 
