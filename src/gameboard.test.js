@@ -47,7 +47,7 @@ describe("placing a ship on the board", () => {
     })
 });  
 
-describe.only("saving created ship's in gameboard.ships", () => {
+describe("saving created ship's in gameboard.ships", () => {
     const testBoard = gameBoardFactory();
     const destroyer = shipFactory(3,0,"destroyer");
 
@@ -74,7 +74,6 @@ describe.only("saving created ship's in gameboard.ships", () => {
     });
 
     it("placing ship on the board saves it in ship array", () => {
-        
         placeShipMock(destroyer, [3,"A"], "horizontal")
         expect(Mock).toHaveBeenCalledWith(destroyer);
     })
@@ -98,9 +97,10 @@ describe("receiving an attack", () => {
         expect(testBoard.currentBoard[6][2]).toEqual([destroyer.shipType, "H"]);
     });
 
-    it.skip("changes ship's length after a hit", () => {
+    it("changes ship's length after a hit", () => {
         testBoard.placeShip(destroyer, [5,"D"], "horizontal");
         testBoard.receiveAttack([6,"C"]);
+        expect(destroyer.length).toBe(2);
     })
 })
 
