@@ -32,6 +32,7 @@ export const gameBoardFactory = (missedAttacks) => {
             const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn);
             this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, "NH"];
         }; 
+        saveShips(ship);
      }
 
      const getShipCoordinates = function (shipLength, startingPoint, direction) {
@@ -67,6 +68,12 @@ export const gameBoardFactory = (missedAttacks) => {
             return coordinate;
         }
         throw "coordinate doesn't exist on the board";
+     };
+
+     const ships = [];
+
+     const saveShips = function(shipObject) {
+        ships.push(shipObject);
      }
 
      const receiveAttack = function(coordinate) {

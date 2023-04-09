@@ -47,6 +47,39 @@ describe("placing a ship on the board", () => {
     })
 });  
 
+describe.only("saving created ship's in gameboard.ships", () => {
+    const testBoard = gameBoardFactory();
+    const destroyer = shipFactory(3,0,"destroyer");
+
+    const Mock = jest.fn();
+
+    const placeShipMock = function(ship, coordinate, direction) {
+        // const startingPoint = isCoordinateValid.call(this, coordinate);
+        // const shipLength = ship.length;
+        // const shipCoordinates = getShipCoordinates.call(this, shipLength, startingPoint, direction);
+        // if (shipCoordinates.length !== shipLength) {
+        //     throw "ship doesn't fit on the board";
+        // }
+        // for (let i = 0; i < shipCoordinates.length; i++) {
+        //     const coordinateRow = shipCoordinates[i][0];
+        //     const coordinateColumn = shipCoordinates[i][1];
+        //     const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn);
+        //     this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, "NH"];
+        // }; 
+        Mock(ship);
+     }
+    
+    beforeEach(() => {
+        testBoard.createBoard();
+    });
+
+    it("placing ship on the board saves it in ship array", () => {
+        
+        placeShipMock(destroyer, [3,"A"], "horizontal")
+        expect(Mock).toHaveBeenCalledWith(destroyer);
+    })
+})
+
 describe("receiving an attack", () => {
    const testBoard = gameBoardFactory();
    const destroyer = shipFactory(3,0,"destroyer");
