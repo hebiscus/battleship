@@ -86,6 +86,7 @@ export const gameBoardFactory = (missedAttacks) => {
             coordinateOnBoard[1] = "H";            
             const hitShip = ships.find(ship => ship.shipType === coordinateOnBoard[0]);
             hitShip.addHit();
+            hitShip.isSunk();
             hitShip.changeLength();
         } else {
             console.log("went here")

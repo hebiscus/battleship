@@ -84,6 +84,7 @@ describe("receiving an attack", () => {
    const destroyer = shipFactory(3,0,"destroyer");
    const patrolBoat = shipFactory(3, 0, "patrol boat");
    const submarine = shipFactory(3, 0, "submarine");
+   const sunkingShip = shipFactory(2,1," patrol boat");
 
     beforeEach(() => {
         testBoard.createBoard();
@@ -112,7 +113,11 @@ describe("receiving an attack", () => {
         expect(submarine.hits).toBe(1);
     });
 
-
+    it("changes ship's sinkStatus when the received hit sunked it", () => {
+        testBoard.placeShip(sunkingShip, [1,"H"], "horizontal");
+        testBoard.receiveAttack([1,"I"]);
+        expect(sunkingShip.sinkStatus).toBeTruthy();
+    });
 })
 
 
