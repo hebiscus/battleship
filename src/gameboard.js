@@ -96,20 +96,3 @@ export const gameBoardFactory = (missedAttacks) => {
     return {missedAttacks, currentBoard, ships, createBoard, placeShip, receiveAttack};
 }
 
-const testBoard = gameBoardFactory();
-testBoard.createBoard();
-// console.log(JSON.stringify(testBoard.currentBoard));
-// console.log(testBoard.currentBoard[4]);
-
-// console.log(JSON.stringify(testBoard.currentBoard[4]))
-// const test = JSON.stringify([4,"E"])
-// console.log(JSON.stringify(testBoard.currentBoard[4]).indexOf(test));
-// const currentRow = testBoard.currentBoard[4];
-// const currentLetter = "B"
-// const findElement = currentRow.find(element => element[1] == "B");
-// console.log(findElement)
-const testShip = shipFactory(4,0, "kap")
-// console.log(testBoard.placeShip(testShip, [3,"A"], "horizontal"));
-// console.log(testBoard.placeShip(testShip, [5,"A"], "horizontal"));
-// console.log(testBoard.currentBoard);
-// console.log(testBoard.placeShip(testShip, [3,"J"], "horizontal"))
