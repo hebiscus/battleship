@@ -89,7 +89,7 @@ export const gameBoardFactory = (missedAttacks) => {
             hitShip.isSunk();
             hitShip.changeLength();
         } else {
-            console.log("went here")
+            coordinateOnBoard[1] = "missed";  
         }
      };
     

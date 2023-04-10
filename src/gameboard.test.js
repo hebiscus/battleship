@@ -101,6 +101,12 @@ describe("receiving an attack", () => {
         expect(testBoard.currentBoard[6][2]).toEqual([destroyer.shipType, "H"]);
     });
 
+    it("logs missed for an attack that didn't hit a ship", () => {
+        const hit = [9, "J"];
+        testBoard.receiveAttack(hit);
+        expect(testBoard.currentBoard[9][9]).toEqual([hit[0], "missed"])
+    })
+
     it("changes ship's length after a hit", () => {
         testBoard.placeShip(patrolBoat, [3,"A"], "horizontal");
         testBoard.receiveAttack([3,"B"]);
