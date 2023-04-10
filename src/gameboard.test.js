@@ -82,6 +82,8 @@ describe("saving created ship's in gameboard.ships", () => {
 describe("receiving an attack", () => {
    const testBoard = gameBoardFactory();
    const destroyer = shipFactory(3,0,"destroyer");
+   const patrolBoat = shipFactory(3, 0, "patrol boat");
+   const submarine = shipFactory(3, 0, "submarine");
 
     beforeEach(() => {
         testBoard.createBoard();
@@ -89,6 +91,7 @@ describe("receiving an attack", () => {
 
     afterEach(() => {
         testBoard.currentBoard == [];
+        testBoard.ships = [];
     });
 
     it("logs H for a hit on a ship's coordinate", () => {
@@ -98,10 +101,18 @@ describe("receiving an attack", () => {
     });
 
     it("changes ship's length after a hit", () => {
-        testBoard.placeShip(destroyer, [5,"D"], "horizontal");
-        testBoard.receiveAttack([6,"C"]);
-        expect(destroyer.length).toBe(2);
-    })
+        testBoard.placeShip(patrolBoat, [3,"A"], "horizontal");
+        testBoard.receiveAttack([3,"B"]);
+        expect(patrolBoat.length).toBe(2);
+    });
+
+    it("changes ship's hit count after it's been hit", () => {
+        testBoard.placeShip(submarine, [8,"D"], "horizontal");
+        testBoard.receiveAttack([8,"E"]);
+        expect(submarine.hits).toBe(1);
+    });
+
+
 })
 
 

@@ -83,15 +83,16 @@ export const gameBoardFactory = (missedAttacks) => {
         const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);
         const coordinateOnBoard = this.currentBoard[coordinateRow][coordinateBoardIndex];
         if (coordinateOnBoard[1].includes("NH")) {
-            coordinateOnBoard[1] = "H";
+            coordinateOnBoard[1] = "H";            
             const hitShip = ships.find(ship => ship.shipType === coordinateOnBoard[0]);
+            hitShip.addHit();
             hitShip.changeLength();
         } else {
-
+            console.log("went here")
         }
      };
     
-    return {missedAttacks, currentBoard, createBoard, placeShip, receiveAttack};
+    return {missedAttacks, currentBoard, ships, createBoard, placeShip, receiveAttack};
 }
 
 const testBoard = gameBoardFactory();
