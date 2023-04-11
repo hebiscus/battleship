@@ -45,3 +45,4 @@ describe("sinking the ship", () => {
         expect(sunkenShip.isSunk()).toBeTruthy();
     });
 });
+

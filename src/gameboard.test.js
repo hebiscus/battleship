@@ -92,7 +92,6 @@ describe("receiving an attack", () => {
 
     afterEach(() => {
         testBoard.currentBoard == [];
-        testBoard.ships = [];
     });
 
     it("logs H for a hit on a ship's coordinate", () => {
@@ -124,6 +123,29 @@ describe("receiving an attack", () => {
         testBoard.receiveAttack([1,"I"]);
         expect(sunkingShip.sinkStatus).toBeTruthy();
     });
+});
+
+describe("keeping track of missed attack", () => {
+    const testBoard = gameBoardFactory();
+
+    beforeEach(() => {
+        testBoard.createBoard();
+    });
+
+    afterEach(() => {
+        testBoard.currentBoard == [];
+        testBoard.missedAttacks = [];
+    });
+
+    it("add missed coordinate after an attack", () => {
+        const attacked = [4,"A"]
+        testBoard.receiveAttack(attacked);
+        expect(testBoard.missedAttacks).toContain(attacked);
+    });
+});
+
+describe("returning whether all ships on a board are sunk", () => {
+
 })
 
 

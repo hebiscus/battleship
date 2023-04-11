@@ -3,8 +3,10 @@
 
 import { shipFactory } from "./ship";
 
-export const gameBoardFactory = (missedAttacks) => {
+export const gameBoardFactory = () => {
     const currentBoard = [];
+    const ships = [];
+    const missedAttacks = [];
     
     const createBoard = () => {
         const rows = 10;
@@ -19,7 +21,7 @@ export const gameBoardFactory = (missedAttacks) => {
         };
     };
 
-     const placeShip = function(ship, coordinate, direction) {
+    const placeShip = function(ship, coordinate, direction) {
         const startingPoint = isCoordinateValid.call(this, coordinate);
         const shipLength = ship.length;
         const shipCoordinates = getShipCoordinates.call(this, shipLength, startingPoint, direction);
@@ -33,7 +35,7 @@ export const gameBoardFactory = (missedAttacks) => {
             this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, "NH"];
         }; 
         saveShips(ship);
-     }
+    }
 
      const getShipCoordinates = function (shipLength, startingPoint, direction) {
         const coordinates = [startingPoint];
@@ -70,8 +72,7 @@ export const gameBoardFactory = (missedAttacks) => {
         throw "coordinate doesn't exist on the board";
      };
 
-     const ships = [];
-
+     
      const saveShips = function(shipObject) {
         ships.push(shipObject);
      }
@@ -90,9 +91,18 @@ export const gameBoardFactory = (missedAttacks) => {
             hitShip.changeLength();
         } else {
             coordinateOnBoard[1] = "missed";  
+            saveMissedAttacks(coordinate);
         }
      };
+
+     const saveMissedAttacks = function(missedCoordinate) {
+        missedAttacks.push(missedCoordinate);
+     };
+
+     const areShipsSunk = function() {
+
+     }
     
-    return {missedAttacks, currentBoard, ships, createBoard, placeShip, receiveAttack};
+    return {missedAttacks, currentBoard, ships, createBoard, placeShip, receiveAttack, areShipsSunk};
 }
 
