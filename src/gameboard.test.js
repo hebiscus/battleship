@@ -50,32 +50,19 @@ describe("placing a ship on the board", () => {
 describe("saving created ship's in gameboard.ships", () => {
     const testBoard = gameBoardFactory();
     const destroyer = shipFactory(3,0,"destroyer");
-
-    const Mock = jest.fn();
-
-    const placeShipMock = function(ship, coordinate, direction) {
-        // const startingPoint = isCoordinateValid.call(this, coordinate);
-        // const shipLength = ship.length;
-        // const shipCoordinates = getShipCoordinates.call(this, shipLength, startingPoint, direction);
-        // if (shipCoordinates.length !== shipLength) {
-        //     throw "ship doesn't fit on the board";
-        // }
-        // for (let i = 0; i < shipCoordinates.length; i++) {
-        //     const coordinateRow = shipCoordinates[i][0];
-        //     const coordinateColumn = shipCoordinates[i][1];
-        //     const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn);
-        //     this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, "NH"];
-        // }; 
-        Mock(ship);
-     }
     
     beforeEach(() => {
         testBoard.createBoard();
     });
 
+    afterEach(() => {
+        testBoard.currentBoard = [];
+        testBoard.ships = [];
+    });
+
     it("placing ship on the board saves it in ship array", () => {
-        placeShipMock(destroyer, [3,"A"], "horizontal")
-        expect(Mock).toHaveBeenCalledWith(destroyer);
+        testBoard.placeShip(destroyer, [3,"A"], "horizontal")
+        expect(testBoard.ships).toContain(destroyer);
     })
 })
 
@@ -90,8 +77,9 @@ describe("receiving an attack", () => {
         testBoard.createBoard();
     });
 
-    afterEach(() => {
-        testBoard.currentBoard == [];
+    afterAll(() => {
+        testBoard.currentBoard = [];
+        testBoard.ships = [];
     });
 
     it("logs H for a hit on a ship's coordinate", () => {
@@ -133,8 +121,9 @@ describe("keeping track of missed attack", () => {
     });
 
     afterEach(() => {
-        testBoard.currentBoard == [];
+        testBoard.currentBoard = [];
         testBoard.missedAttacks = [];
+        testBoard.ships = [];
     });
 
     it("add missed coordinate after an attack", () => {
@@ -145,7 +134,30 @@ describe("keeping track of missed attack", () => {
 });
 
 describe("returning whether all ships on a board are sunk", () => {
+    const testBoard = gameBoardFactory();
+    const sunkenShip = shipFactory(4,4,"battleship");
+    const normalShip = shipFactory(3,1,"destroyer");
+    const lovelyShip = shipFactory(2,0,"battleship");
 
+    beforeEach(() => {
+        testBoard.createBoard();
+    });
+
+    afterEach(() => {
+        testBoard.ships = [];
+    });
+
+    it("returns true if all ships are sunk", () => {
+        testBoard.placeShip(sunkenShip, [5,"A"], "horizontal");
+        sunkenShip.sinkStatus = true;
+        expect(testBoard.areShipsSunk()).toBeTruthy();
+    });
+
+    it("returns false if all ships on the board are not sunk", () => {
+        testBoard.placeShip(lovelyShip, [3,"A"], "horizontal");
+        testBoard.placeShip(normalShip, [5,"E"], "vertical");
+        expect(testBoard.areShipsSunk()).toBeFalsy();
+    })
 })
 
 

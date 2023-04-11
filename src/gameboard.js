@@ -34,7 +34,7 @@ export const gameBoardFactory = () => {
             const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn);
             this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, "NH"];
         }; 
-        saveShips(ship);
+        saveShips.call(this, ship);
     }
 
      const getShipCoordinates = function (shipLength, startingPoint, direction) {
@@ -74,7 +74,7 @@ export const gameBoardFactory = () => {
 
      
      const saveShips = function(shipObject) {
-        ships.push(shipObject);
+        this.ships.push(shipObject);
      }
 
      const receiveAttack = function(coordinate) {
@@ -100,8 +100,13 @@ export const gameBoardFactory = () => {
      };
 
      const areShipsSunk = function() {
-
-     }
+        const shipCount = this.ships.length;
+        const sunkenShips = this.ships.filter(ship => ship.sinkStatus === true);
+        if (sunkenShips.length === shipCount) {
+            return true;
+        } 
+            return false;
+     };
     
     return {missedAttacks, currentBoard, ships, createBoard, placeShip, receiveAttack, areShipsSunk};
 }
