@@ -157,7 +157,7 @@ describe("returning whether all ships on a board are sunk", () => {
         testBoard.placeShip(lovelyShip, [3,"A"], "horizontal");
         testBoard.placeShip(normalShip, [5,"E"], "vertical");
         expect(testBoard.areShipsSunk()).toBeFalsy();
-    })
+    });
 })
 
 
