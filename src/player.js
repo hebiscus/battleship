@@ -3,18 +3,26 @@
 import { gameBoardFactory } from "./gameboard";
 import { shipFactory } from "./ship";
 
-export const PlayerFactory = () => {
+export const playerFactory = (name) => {
 
     const attack = function(coordinate, enemyboard) {
-        if (this === "player") {
+        if (this.name === "player") {
             return coordinate;
         }
-        
+        const emptyCoordinates = findEmptyCoordinates(enemyboard);
     }
 
-    return {attack};
+    return {name, attack};
 };
 
 function switchPlayer() {
 
+}
+
+function findEmptyCoordinates(enemyboard) {
+    const empty = [];
+    enemyboard.currentBoard.forEach(row => {
+        const notAttacked = row.find(coordinate => (coordinate[1] !== "H") || (coordinate[1] !== "missed"));
+        empty.push(notAttacked);
+    })
 }
