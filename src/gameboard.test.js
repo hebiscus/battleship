@@ -44,7 +44,25 @@ describe("placing a ship on the board", () => {
 
     it("ship that doesn't fit on the board vertically cannot be placed", () => {
         expect(() => testBoard.placeShip(perfectShip, [9,"J"], "vertical")).toThrow("ship doesn't fit on the board");
-    })
+    });
+
+    it("rejects placing a vertical ship where there already is one", () => {
+        const clingyShip = shipFactory(3, 0, "bonk");
+        testBoard.placeShip(perfectShip, [2, "A"], "horizontal");
+        expect(() => testBoard.placeShip(clingyShip, [0,"A"], "vertical")).toThrow("coordinate doesn't exist on the board");
+    });
+
+    it("rejects placing a horizontal ship where there already is one", () => {
+        const clingyShip = shipFactory(3, 0, "bonk");
+        testBoard.placeShip(perfectShip, [2, "A"], "horizontal");
+        expect(() => testBoard.placeShip(clingyShip, [2,"C"], "horizontal")).toThrow("coordinate doesn't exist on the board");
+    });
+
+    // it.skip("rejects placing the ship if it touches another ship directly", () => {
+    //     const clingyShip = shipFactory(3, 0, "destroyer");
+    //     // testBoard.placeShip(perfectShip, [2, "A"], "horizontal");
+    //     expect(() => testBoard.placeShip(clingyShip, [1,"A"], "vertical")).toThrow("ship doesn't fit on the board");
+    // });
 });  
 
 describe("saving created ship's in gameboard.ships", () => {

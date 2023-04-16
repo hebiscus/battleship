@@ -5,13 +5,16 @@ import { shipFactory } from "./ship";
 
 export const playerFactory = (name) => {
 
-    const attack = function(coordinate, enemyboard) {
+    const attack = function(enemyboard, coordinate) {
         if (this.name === "player") {
             return coordinate;
         }
         const emptyCoordinates = findEmptyCoordinates(enemyboard);
+        const numberOfEmptyCoordinates = emptyCoordinates.length;
+        const randomChoice = Math.floor(Math.random() * numberOfEmptyCoordinates);
+        return emptyCoordinates[randomChoice];
     }
-
+    
     return {name, attack};
 };
 
@@ -25,4 +28,5 @@ function findEmptyCoordinates(enemyboard) {
         const notAttacked = row.find(coordinate => (coordinate[1] !== "H") || (coordinate[1] !== "missed"));
         empty.push(notAttacked);
     })
-}
+    return empty;
+};

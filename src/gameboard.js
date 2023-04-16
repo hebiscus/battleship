@@ -56,8 +56,12 @@ export const gameBoardFactory = () => {
         const startingRow = startingPoint[0];
         this.currentBoard.forEach(row => {
             const sameLetter = row.find(coordinate => coordinate[1] === column);
+            if (sameLetter === undefined) {
+                throw "coordinate doesn't exist on the board";
+            };
             if (sameLetter[0] > startingRow && coordinates.length < shipLength) {
-                coordinates.push(sameLetter);
+                const valid = isCoordinateValid.call(this, sameLetter)
+                coordinates.push(valid);
             }
         });
         return coordinates;
