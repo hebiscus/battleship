@@ -71,9 +71,45 @@ export const gameBoardFactory = () => {
         const coordinateString = JSON.stringify(coordinate);
         const boardString = JSON.stringify(this.currentBoard);
         if (boardString.includes(coordinateString)) {
+            validateAdjacentCoordinates.call(this, coordinate);
             return coordinate;
         }
         throw "coordinate doesn't exist on the board";
+     };
+
+     const validateAdjacentCoordinates = function(coordinate) {
+        const columnNumbers = ["A","B","C","D","E","F","G","H","I","J"];
+        const coordinateRow = coordinate[0];
+        const coordinateValue = coordinate[1];
+        const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);
+        if (coordinateRow === 0) {
+        const adjacentCoordinates = [
+        this.currentBoard[coordinateRow][coordinateBoardIndex - 1], this.currentBoard[coordinateRow][coordinateBoardIndex + 1],
+        this.currentBoard[coordinateRow + 1][coordinateBoardIndex - 1], this.currentBoard[coordinateRow + 1][coordinateBoardIndex],
+        this.currentBoard[coordinateRow + 1][coordinateBoardIndex+ 1]];
+        const adjacentString = JSON.stringify(adjacentCoordinates);
+        if (adjacentString.includes("NH")) {
+            throw "ships can't touch one another";
+            };
+        } else if (coordinateRow === 9) {
+        const adjacentCoordinates = [this.currentBoard[coordinateRow - 1][coordinateBoardIndex - 1], 
+        this.currentBoard[coordinateRow - 1][coordinateBoardIndex], this.currentBoard[coordinateRow - 1][coordinateBoardIndex + 1],
+        this.currentBoard[coordinateRow][coordinateBoardIndex - 1], this.currentBoard[coordinateRow][coordinateBoardIndex + 1]];
+        const adjacentString = JSON.stringify(adjacentCoordinates);
+        if (adjacentString.includes("NH")) {
+            throw "ships can't touch one another";
+            };
+        } else {
+        const adjacentCoordinates = [this.currentBoard[coordinateRow - 1][coordinateBoardIndex - 1], 
+        this.currentBoard[coordinateRow - 1][coordinateBoardIndex], this.currentBoard[coordinateRow - 1][coordinateBoardIndex + 1],
+        this.currentBoard[coordinateRow][coordinateBoardIndex - 1], this.currentBoard[coordinateRow][coordinateBoardIndex + 1],
+        this.currentBoard[coordinateRow + 1][coordinateBoardIndex - 1], this.currentBoard[coordinateRow + 1][coordinateBoardIndex],
+        this.currentBoard[coordinateRow + 1][coordinateBoardIndex+ 1]];
+        const adjacentString = JSON.stringify(adjacentCoordinates);
+        if (adjacentString.includes("NH")) {
+            throw "ships can't touch one another";
+            };
+        };
      };
 
      

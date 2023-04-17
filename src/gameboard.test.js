@@ -49,7 +49,7 @@ describe("placing a ship on the board", () => {
     it("rejects placing a vertical ship where there already is one", () => {
         const clingyShip = shipFactory(3, 0, "bonk");
         testBoard.placeShip(perfectShip, [2, "A"], "horizontal");
-        expect(() => testBoard.placeShip(clingyShip, [0,"A"], "vertical")).toThrow("coordinate doesn't exist on the board");
+        expect(() => testBoard.placeShip(clingyShip, [2,"A"], "vertical")).toThrow("coordinate doesn't exist on the board");
     });
 
     it("rejects placing a horizontal ship where there already is one", () => {
@@ -58,11 +58,17 @@ describe("placing a ship on the board", () => {
         expect(() => testBoard.placeShip(clingyShip, [2,"C"], "horizontal")).toThrow("coordinate doesn't exist on the board");
     });
 
-    // it.skip("rejects placing the ship if it touches another ship directly", () => {
-    //     const clingyShip = shipFactory(3, 0, "destroyer");
-    //     // testBoard.placeShip(perfectShip, [2, "A"], "horizontal");
-    //     expect(() => testBoard.placeShip(clingyShip, [1,"A"], "vertical")).toThrow("ship doesn't fit on the board");
-    // });
+    it("rejects horizontal ship if it touches another ship directly", () => {
+        const clingyShip = shipFactory(3, 0, "destroyer");
+        testBoard.placeShip(perfectShip, [1, "A"], "horizontal");
+        expect(() => testBoard.placeShip(clingyShip, [2,"A"], "horizontal")).toThrow("ships can't touch one another");
+    });
+
+    it("rejects horizontal ship if it touches another ship directly", () => {
+        const clingyShip = shipFactory(3, 0, "destroyer");
+        testBoard.placeShip(perfectShip, [5, "E"], "horizontal");
+        expect(() => testBoard.placeShip(clingyShip, [4,"F"], "vertical")).toThrow("ships can't touch one another");
+    });
 });  
 
 describe("saving created ship's in gameboard.ships", () => {
