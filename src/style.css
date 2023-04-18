@@ -47,7 +47,6 @@ p {
 .placement-div {
     width: 50%;
     height: 16%;
-    border: solid red;
     text-align: center;
     color: white;
     font-size: 2rem;
@@ -77,6 +76,25 @@ p {
 #main-gamezone {
     height: 50%;
     display: flex;
+    justify-content: space-between;
+}
+
+.player-ships-left {
+    width: 10%;
+}
+
+.player-board {
+    width: 40%;
+    border: solid black;
+}
+
+.computer-board {
+    width: 40%;
+    border: solid black;
+}
+
+.computer-ships-left {
+    width: 10%;
 }
 
 #footer {
