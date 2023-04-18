@@ -112,10 +112,9 @@ export const gameBoardFactory = () => {
         };
      };
 
-     
      const saveShips = function(shipObject) {
         this.ships.push(shipObject);
-     }
+     };
 
      const receiveAttack = function(coordinate) {
         const coordinateRow = coordinate[0];
@@ -132,7 +131,7 @@ export const gameBoardFactory = () => {
         } else {
             coordinateOnBoard[1] = "missed";  
             saveMissedAttacks(coordinate);
-        }
+        };
      };
 
      const saveMissedAttacks = function(missedCoordinate) {
@@ -145,7 +144,7 @@ export const gameBoardFactory = () => {
         if (sunkenShips.length === shipCount) {
             return true;
         } 
-            return false;
+        return false;
      };
     
     return {missedAttacks, currentBoard, ships, createBoard, placeShip, receiveAttack, areShipsSunk};

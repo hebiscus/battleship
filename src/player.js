@@ -13,7 +13,7 @@ export const playerFactory = (name) => {
         const numberOfEmptyCoordinates = emptyCoordinates.length;
         const randomChoice = Math.floor(Math.random() * numberOfEmptyCoordinates);
         return emptyCoordinates[randomChoice];
-    }
+    };
     
     return {name, attack};
 };
