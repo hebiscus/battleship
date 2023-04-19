@@ -77,6 +77,7 @@ p {
     height: 50%;
     display: flex;
     justify-content: space-between;
+    gap: 2%;
 }
 
 .player-ships-left {
@@ -84,13 +85,35 @@ p {
 }
 
 .player-board {
-    width: 40%;
-    border: solid black;
+    width: 25vw;
+    height: 25vw;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 1.1%;
 }
 
+.player-board > div {
+    background-color: white;
+}
+
+/* .player-board:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  } */
+
 .computer-board {
-    width: 40%;
-    border: solid black;
+    width: 25vw;
+    height: 25vw;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 1.1%;
+}
+
+.computer-board > div {
+    background-color: white;
 }
 
 .computer-ships-left {
