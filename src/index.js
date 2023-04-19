@@ -24,5 +24,15 @@ export function renderBoard(player, boardData) {
                 humanBoard.append(square);
             };
         });
+    } else {
+        boardData.forEach(row => {
+            const numberOfCoordinates = row.length;
+            for (let i = 0; i < numberOfCoordinates; i++) {
+                const square = document.createElement("div");
+                const squareCoordinates = JSON.stringify(row[i]);
+                square.dataset.coordinate = squareCoordinates;
+                computerBoard.append(square);
+            };
+        });
     };
 };

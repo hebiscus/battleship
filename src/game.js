@@ -16,7 +16,7 @@ export function game() {
     computerBoard.createBoard();
 
     renderBoard("human", humanBoard.currentBoard);
-    // renderBoard("computer", computerBoard.currentBoard);
+    renderBoard("computer", computerBoard.currentBoard);
 }
 
 game();
