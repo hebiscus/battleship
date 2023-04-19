@@ -6,7 +6,7 @@ import { shipFactory } from "./ship";
 export const playerFactory = (name) => {
 
     const attack = function(enemyboard, coordinate) {
-        if (this.name === "player") {
+        if (this.name === "human") {
             return coordinate;
         }
         const emptyCoordinates = findEmptyCoordinates(enemyboard);
