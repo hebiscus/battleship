@@ -97,12 +97,6 @@ p {
     background-color: white;
 }
 
-/* .player-board:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-  } */
-
 .computer-board {
     width: 25vw;
     height: 25vw;

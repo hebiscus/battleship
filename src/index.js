@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable import/prefer-default-export */
 // eslint-disable-next-line eol-last
 import './style.css';
@@ -6,8 +7,28 @@ import { gameBoardFactory } from './gameboard';
 import { playerFactory } from './player';
 import { game } from './game';
 
+
 export function firstRender() {
-    
+    const rotateButton = document.querySelector(".rotate-btn");
+    const shipDirection = rotateShip();
+    rotateButton.addEventListener("click", () => {shipDirection});
+    const playerBoard = document.querySelector(".player-board");
+    const playerBoardSquares = playerBoard.children();
+    playerBoardSquares.forEach(square => {
+        square.addEventListener("click", () => {})
+    })
+}
+
+export function renderPlacingShips(playerObject, ships) {
+    const playerBoard = document.querySelector(".player-board");
+    const playerBoardSquares = playerBoard.children;
+    let counter = 0;
+    const currentShip = ships[counter];
+    Array.from(playerBoardSquares).forEach(square => {
+        const squareCoordinate = JSON.parse(square.dataset.coordinate);
+        square.addEventListener("click", () => {playerObject.placeShip(currentShip, squareCoordinate, "horizontal")});
+        counter += 1;
+    })
 }
 
 export function renderBoard(player, boardData) {
@@ -36,3 +57,13 @@ export function renderBoard(player, boardData) {
         });
     };
 };
+
+export function rotateShip() {
+    let currentChoice = "horizontal";
+    if (currentChoice === "horizontal") {
+        currentChoice = "vertical";
+        return currentChoice;
+    }
+    currentChoice = "horizontal";
+    return currentChoice;
+}
