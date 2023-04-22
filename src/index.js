@@ -45,6 +45,16 @@ function screenController() {
         });
     }
 
+    const addBoardListeners = (e) => {
+        const squareCoordinate = JSON.parse(e.currentTarget.dataset.coordinate);
+        humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
+        switchShips(currentShipToPlace);
+        console.log(humanBoard.currentBoard);
+        if (currentShipToPlace.length === 5) {
+            e.currentTarget.removeEventListener("click", addBoardListeners);
+        }
+    }
+
     const renderPlacingShips = () =>  {
         const rotateButton = document.querySelector(".rotate-btn");
         rotateButton.addEventListener("click", switchShipDirection);
@@ -52,6 +62,10 @@ function screenController() {
         Array.from(playerBoardSquares).forEach(square => {
             const squareCoordinate = JSON.parse(square.dataset.coordinate);
             square.addEventListener("click", () => {
+                if (currentShipToPlace === undefined) {
+                    console.log("massage for my scalp");
+                    return
+                }
                 humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
                 switchShips(currentShipToPlace);
             });
@@ -114,16 +128,6 @@ export function renderBoard(player, boardData) {
         });
     };
 };
-
-export function rotateShip() {
-    let currentChoice = "horizontal";
-    if (currentChoice === "horizontal") {
-        currentChoice = "vertical";
-        return currentChoice;
-    }
-    currentChoice = "horizontal";
-    return currentChoice;
-}
 
 function Screen() {
     const game = GameController();
