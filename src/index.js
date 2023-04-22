@@ -63,7 +63,7 @@ function screenController() {
             const squareCoordinate = JSON.parse(square.dataset.coordinate);
             square.addEventListener("click", () => {
                 if (currentShipToPlace === undefined) {
-                    console.log("massage for my scalp");
+                    placeShipDiv.innerText = "all ships have been placed, start the game smartass"
                     return
                 }
                 humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
