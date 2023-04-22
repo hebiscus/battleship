@@ -57,6 +57,10 @@ p {
     height: 20%;
 }
 
+.rotate-btn:hover {
+    cursor: pointer;
+}
+
 .start-btn {
     width: 7%;
     height: 20%;
@@ -95,6 +99,11 @@ p {
 
 .player-board > div {
     background-color: white;
+}
+
+.player-board > div:hover {
+    cursor: pointer;
+    background-color: #feb05a;
 }
 
 .computer-board {

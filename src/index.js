@@ -43,16 +43,15 @@ function screenController() {
                 playerBoardDiv.append(square);
             };
         });
-    }
-
-    const addBoardListeners = (e) => {
-        const squareCoordinate = JSON.parse(e.currentTarget.dataset.coordinate);
-        humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
-        switchShips(currentShipToPlace);
-        console.log(humanBoard.currentBoard);
-        if (currentShipToPlace.length === 5) {
-            e.currentTarget.removeEventListener("click", addBoardListeners);
-        }
+        computerBoard.currentBoard.forEach(row => {
+            const numberOfCoordinates = row.length;
+            for (let i = 0; i < numberOfCoordinates; i++) {
+                const square = document.createElement("div");
+                const squareCoordinates = JSON.stringify(row[i]);
+                square.dataset.coordinate = squareCoordinates;
+                computerBoardDiv.append(square);
+            };
+        });
     }
 
     const renderPlacingShips = () =>  {
@@ -60,6 +59,7 @@ function screenController() {
         rotateButton.addEventListener("click", switchShipDirection);
         const playerBoardSquares = playerBoardDiv.children;
         Array.from(playerBoardSquares).forEach(square => {
+            // square.style = 
             const squareCoordinate = JSON.parse(square.dataset.coordinate);
             square.addEventListener("click", () => {
                 if (currentShipToPlace === undefined) {
