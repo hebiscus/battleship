@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-use-before-define */
 /* eslint-disable import/prefer-default-export */
 // eslint-disable-next-line eol-last
@@ -57,8 +58,9 @@ function screenController() {
     const addHighlihtPlacing = (squareHigh) => {
         const square = squareHigh;
         if ((square.dataset.coordinate === `[9,"G"]` && currentShipToPlace.length === 5) || 
-            (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 5 || currentShipToPlace.length === 4) ||
-            (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 5 || currentShipToPlace.length === 4 || currentShipToPlace.length === 3) ||
+            (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 5 || (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 4)) ||
+            (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 5 || (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 4) ||
+            (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 3)) ||
             (square.dataset.coordinate === `[9,"J"]`)) {
             return;
         }
@@ -114,9 +116,15 @@ function screenController() {
 
     const removeHighlihtPlacing = (squareHigh) => {
         const square = squareHigh;
+        const shipLength = currentShipToPlace.length;
+        const coordinate = square.dataset.coordinate;
+        // if (coordinate === `[9,"G"]` && currentShipToPlace.length === 5) {
+        //     return
+        // }
         if ((square.dataset.coordinate === `[9,"G"]` && currentShipToPlace.length === 5) || 
-            (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 5 || currentShipToPlace.length === 4) ||
-            (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 5 || currentShipToPlace.length === 4 || currentShipToPlace.length === 3) ||
+            (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 5 || (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 4)) ||
+            (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 5 || (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 4) ||
+            (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 3)) ||
             (square.dataset.coordinate === `[9,"J"]`)) {
             return;
         }
