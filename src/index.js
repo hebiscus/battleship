@@ -54,19 +54,151 @@ function screenController() {
         });
     }
 
-    const addHighlihtPlacing = (square) => {
-        if (currentShipToPlace.length === 2) {
-            const nextSquare = square.nextSibling;
-            square.style.backgroundColor = "#feb05a"
-            nextSquare.style.backgroundColor = "#feb05a";
-        }
+    const addHighlihtPlacing = (squareHigh) => {
+        const square = squareHigh;
+        if (currentShipDirection === "horizontal") {
+            if (currentShipToPlace.length === 2) {
+                const secondSquare = square.nextSibling;
+                if (secondSquare === null) {
+                    return;
+                }
+                square.style.backgroundColor = "#feb05a"
+                secondSquare.style.backgroundColor = "#feb05a";
+            } else if (currentShipToPlace.length === 3) {
+                const secondSquare = square.nextSibling;
+                if (secondSquare === null) {
+                    return;
+                }
+                const thirdSquare = square.nextSibling.nextSibling;
+                if (thirdSquare === null) {
+                    return;
+                }
+                square.style.backgroundColor = "#feb05a"
+                secondSquare.style.backgroundColor = "#feb05a";
+                thirdSquare.style.backgroundColor = "#feb05a"
+            } else if (currentShipToPlace.length === 4) {
+                const secondSquare = square.nextSibling;
+                if (secondSquare === null) {
+                    return;
+                }
+                const thirdSquare = square.nextSibling.nextSibling;
+                if (thirdSquare === null) {
+                    return;
+                }
+                const fourthSquare = square.nextSibling.nextSibling.nextSibling;
+                if (fourthSquare === null) {
+                    return;
+                }
+                square.style.backgroundColor = "#feb05a";
+                secondSquare.style.backgroundColor = "#feb05a";
+                thirdSquare.style.backgroundColor = "#feb05a";
+                fourthSquare.style.backgroundColor = "#feb05a";
+            } else {
+                const secondSquare = square.nextSibling;
+                if (secondSquare === null) {
+                    return;
+                }
+                const thirdSquare = square.nextSibling.nextSibling;
+                if (thirdSquare === null) {
+                    return;
+                }
+                const fourthSquare = square.nextSibling.nextSibling.nextSibling;
+                if (fourthSquare === null) {
+                    return;
+                }
+                const fifthSquare = square.nextSibling.nextSibling.nextSibling.nextSibling;
+                if (fifthSquare === null) {
+                    return;
+                }
+                square.style.backgroundColor = "#feb05a";
+                secondSquare.style.backgroundColor = "#feb05a";
+                thirdSquare.style.backgroundColor = "#feb05a";
+                fourthSquare.style.backgroundColor = "#feb05a";
+                fifthSquare.style.backgroundColor = "#feb05a";
+            };
+        } else {
+            if (currentShipToPlace.length === 2) {
+                square.style.backgroundColor = "#feb05a"
+                secondSquare.style.backgroundColor = "#feb05a";
+            } else if (currentShipToPlace.length === 3) {
+                square.style.backgroundColor = "#feb05a"
+                secondSquare.style.backgroundColor = "#feb05a";
+                thirdSquare.style.backgroundColor = "#feb05a"
+            } else if (currentShipToPlace.length === 4) {
+                square.style.backgroundColor = "#feb05a";
+                secondSquare.style.backgroundColor = "#feb05a";
+                thirdSquare.style.backgroundColor = "#feb05a";
+                fourthSquare.style.backgroundColor = "#feb05a";
+            } else {
+                square.style.backgroundColor = "#feb05a";
+                secondSquare.style.backgroundColor = "#feb05a";
+                thirdSquare.style.backgroundColor = "#feb05a";
+                fourthSquare.style.backgroundColor = "#feb05a";
+                fifthSquare.style.backgroundColor = "#feb05a";
+            };
+        };
     }
 
-    const removeHighlihtPlacing = (square) => {
+    const removeHighlihtPlacing = (squareHigh) => {
+        const square = squareHigh;
         if (currentShipToPlace.length === 2) {
-            const nextSquare = square.nextSibling;
+            const secondSquare = square.nextSibling;
+            if (secondSquare === null) {
+                return;
+            }
             square.style.backgroundColor = "white"
-            nextSquare.style.backgroundColor = "white";
+            secondSquare.style.backgroundColor = "white";
+        } else if (currentShipToPlace.length === 3) {
+            const secondSquare = square.nextSibling;
+            if (secondSquare === null) {
+                return;
+            }
+            const thirdSquare = square.nextSibling.nextSibling;
+            if (thirdSquare === null) {
+                return;
+            }
+            square.style.backgroundColor = "white"
+            secondSquare.style.backgroundColor = "white";
+            thirdSquare.style.backgroundColor = "white"
+        } else if (currentShipToPlace.length === 4) {
+            const secondSquare = square.nextSibling;
+            if (secondSquare === null) {
+                return;
+            }
+            const thirdSquare = square.nextSibling.nextSibling;
+            if (thirdSquare === null) {
+                return;
+            }
+            const fourthSquare = square.nextSibling.nextSibling.nextSibling;
+            if (fourthSquare === null) {
+                return;
+            }
+            square.style.backgroundColor = "white";
+            secondSquare.style.backgroundColor = "white";
+            thirdSquare.style.backgroundColor = "white";
+            fourthSquare.style.backgroundColor = "white";
+        } else {
+            const secondSquare = square.nextSibling;
+            if (secondSquare === null) {
+                return;
+            }
+            const thirdSquare = square.nextSibling.nextSibling;
+            if (thirdSquare === null) {
+                return;
+            }
+            const fourthSquare = square.nextSibling.nextSibling.nextSibling;
+            if (fourthSquare === null) {
+                return;
+            }
+            const fifthSquare = square.nextSibling.nextSibling.nextSibling.nextSibling;
+            if (fifthSquare === null) {
+                return;
+            }
+            square.style.backgroundColor = "white";
+            secondSquare.style.backgroundColor = "white";
+            thirdSquare.style.backgroundColor = "white";
+            fourthSquare.style.backgroundColor = "white";
+            fifthSquare.style.backgroundColor = "white";
         }
     }
 
@@ -77,9 +209,15 @@ function screenController() {
         Array.from(playerBoardSquares).forEach(square => {
             const squareCoordinate = JSON.parse(square.dataset.coordinate);
             square.addEventListener("mouseover", () => {
+                if (currentShipToPlace === undefined) {
+                    return;
+                }
                 addHighlihtPlacing(square);
             });
             square.addEventListener("mouseout", () => {
+                if (currentShipToPlace === undefined) {
+                    return;
+                }
                 removeHighlihtPlacing(square);
             });
             square.addEventListener("click", () => {
