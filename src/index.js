@@ -54,13 +54,34 @@ function screenController() {
         });
     }
 
+    const addHighlihtPlacing = (square) => {
+        if (currentShipToPlace.length === 2) {
+            const nextSquare = square.nextSibling;
+            square.style.backgroundColor = "#feb05a"
+            nextSquare.style.backgroundColor = "#feb05a";
+        }
+    }
+
+    const removeHighlihtPlacing = (square) => {
+        if (currentShipToPlace.length === 2) {
+            const nextSquare = square.nextSibling;
+            square.style.backgroundColor = "white"
+            nextSquare.style.backgroundColor = "white";
+        }
+    }
+
     const renderPlacingShips = () =>  {
         const rotateButton = document.querySelector(".rotate-btn");
         rotateButton.addEventListener("click", switchShipDirection);
         const playerBoardSquares = playerBoardDiv.children;
         Array.from(playerBoardSquares).forEach(square => {
-            // square.style = 
             const squareCoordinate = JSON.parse(square.dataset.coordinate);
+            square.addEventListener("mouseover", () => {
+                addHighlihtPlacing(square);
+            });
+            square.addEventListener("mouseout", () => {
+                removeHighlihtPlacing(square);
+            });
             square.addEventListener("click", () => {
                 if (currentShipToPlace === undefined) {
                     placeShipDiv.innerText = "all ships have been placed, start the game smartass"
@@ -89,18 +110,6 @@ export function firstRender() {
         square.addEventListener("click", () => {})
     })
 }
-
-// export function renderPlacingShips(playerObject, ships) {
-//     const playerBoard = document.querySelector(".player-board");
-//     const playerBoardSquares = playerBoard.children;
-//     let counter = 0;
-//     const currentShip = ships[counter];
-//     Array.from(playerBoardSquares).forEach(square => {
-//         const squareCoordinate = JSON.parse(square.dataset.coordinate);
-//         square.addEventListener("click", () => {playerObject.placeShip(currentShip, squareCoordinate, "horizontal")});
-//         counter += 1;
-//     })
-// }
 
 export function renderBoard(player, boardData) {
     const humanBoard = document.querySelector(".player-board");

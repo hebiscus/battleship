@@ -103,6 +103,10 @@ p {
 
 .player-board > div:hover {
     cursor: pointer;
+    /* background-color: #feb05a; */
+}
+
+.placing-hover:hover {
     background-color: #feb05a;
 }
 
