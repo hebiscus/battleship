@@ -56,60 +56,33 @@ function screenController() {
 
     const addHighlihtPlacing = (squareHigh) => {
         const square = squareHigh;
+        if ((square.dataset.coordinate === `[9,"G"]` && currentShipToPlace.length === 5) || 
+            (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 5 || currentShipToPlace.length === 4) ||
+            (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 5 || currentShipToPlace.length === 4 || currentShipToPlace.length === 3) ||
+            (square.dataset.coordinate === `[9,"J"]`)) {
+            return;
+        }
+        const secondSquare = square.nextSibling;
         if (currentShipDirection === "horizontal") {
             if (currentShipToPlace.length === 2) {
-                const secondSquare = square.nextSibling;
-                if (secondSquare === null) {
-                    return;
-                }
                 square.style.backgroundColor = "#feb05a"
                 secondSquare.style.backgroundColor = "#feb05a";
             } else if (currentShipToPlace.length === 3) {
-                const secondSquare = square.nextSibling;
-                if (secondSquare === null) {
-                    return;
-                }
                 const thirdSquare = square.nextSibling.nextSibling;
-                if (thirdSquare === null) {
-                    return;
-                }
                 square.style.backgroundColor = "#feb05a"
                 secondSquare.style.backgroundColor = "#feb05a";
                 thirdSquare.style.backgroundColor = "#feb05a"
             } else if (currentShipToPlace.length === 4) {
-                const secondSquare = square.nextSibling;
-                if (secondSquare === null) {
-                    return;
-                }
                 const thirdSquare = square.nextSibling.nextSibling;
-                if (thirdSquare === null) {
-                    return;
-                }
                 const fourthSquare = square.nextSibling.nextSibling.nextSibling;
-                if (fourthSquare === null) {
-                    return;
-                }
                 square.style.backgroundColor = "#feb05a";
                 secondSquare.style.backgroundColor = "#feb05a";
                 thirdSquare.style.backgroundColor = "#feb05a";
                 fourthSquare.style.backgroundColor = "#feb05a";
             } else {
-                const secondSquare = square.nextSibling;
-                if (secondSquare === null) {
-                    return;
-                }
                 const thirdSquare = square.nextSibling.nextSibling;
-                if (thirdSquare === null) {
-                    return;
-                }
                 const fourthSquare = square.nextSibling.nextSibling.nextSibling;
-                if (fourthSquare === null) {
-                    return;
-                }
                 const fifthSquare = square.nextSibling.nextSibling.nextSibling.nextSibling;
-                if (fifthSquare === null) {
-                    return;
-                }
                 square.style.backgroundColor = "#feb05a";
                 secondSquare.style.backgroundColor = "#feb05a";
                 thirdSquare.style.backgroundColor = "#feb05a";
@@ -141,59 +114,32 @@ function screenController() {
 
     const removeHighlihtPlacing = (squareHigh) => {
         const square = squareHigh;
+        if ((square.dataset.coordinate === `[9,"G"]` && currentShipToPlace.length === 5) || 
+            (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 5 || currentShipToPlace.length === 4) ||
+            (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 5 || currentShipToPlace.length === 4 || currentShipToPlace.length === 3) ||
+            (square.dataset.coordinate === `[9,"J"]`)) {
+            return;
+        }
+        const secondSquare = square.nextSibling;
         if (currentShipToPlace.length === 2) {
-            const secondSquare = square.nextSibling;
-            if (secondSquare === null) {
-                return;
-            }
             square.style.backgroundColor = "white"
             secondSquare.style.backgroundColor = "white";
         } else if (currentShipToPlace.length === 3) {
-            const secondSquare = square.nextSibling;
-            if (secondSquare === null) {
-                return;
-            }
             const thirdSquare = square.nextSibling.nextSibling;
-            if (thirdSquare === null) {
-                return;
-            }
             square.style.backgroundColor = "white"
             secondSquare.style.backgroundColor = "white";
             thirdSquare.style.backgroundColor = "white"
         } else if (currentShipToPlace.length === 4) {
-            const secondSquare = square.nextSibling;
-            if (secondSquare === null) {
-                return;
-            }
-            const thirdSquare = square.nextSibling.nextSibling;
-            if (thirdSquare === null) {
-                return;
-            }
             const fourthSquare = square.nextSibling.nextSibling.nextSibling;
-            if (fourthSquare === null) {
-                return;
-            }
+            const thirdSquare = square.nextSibling.nextSibling;
             square.style.backgroundColor = "white";
             secondSquare.style.backgroundColor = "white";
             thirdSquare.style.backgroundColor = "white";
             fourthSquare.style.backgroundColor = "white";
         } else {
-            const secondSquare = square.nextSibling;
-            if (secondSquare === null) {
-                return;
-            }
             const thirdSquare = square.nextSibling.nextSibling;
-            if (thirdSquare === null) {
-                return;
-            }
             const fourthSquare = square.nextSibling.nextSibling.nextSibling;
-            if (fourthSquare === null) {
-                return;
-            }
             const fifthSquare = square.nextSibling.nextSibling.nextSibling.nextSibling;
-            if (fifthSquare === null) {
-                return;
-            }
             square.style.backgroundColor = "white";
             secondSquare.style.backgroundColor = "white";
             thirdSquare.style.backgroundColor = "white";
