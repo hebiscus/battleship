@@ -16,12 +16,16 @@ function screenController() {
     let currentShipDirection = "horizontal";
     game.createShips();
     let currentShipToPlace = game.shipsArray[0];
+    let placingShipsPhase = true;
     const humanBoard = game.boards[0];
+    const computerBoard = game.boards[1];
+    humanBoard.createBoard();
+    computerBoard.createBoard();
     
     const switchShips = (currentShip) => {
         const indexofPrevShip = game.shipsArray.findIndex(ship => ship === currentShip);
         currentShipToPlace = game.shipsArray[indexofPrevShip + 1];
-    }
+    };
 
     const switchShipDirection = () => {
         if (currentShipDirection === "horizontal") {
@@ -29,18 +33,21 @@ function screenController() {
         } else {
             currentShipDirection = "horizontal";
         }
-    }
+    };
 
     const updateScreen = () => {
-        const computerBoard = game.boards[1];
-        humanBoard.createBoard();
-        computerBoard.createBoard();
+        playerBoardDiv.replaceChildren();
+        computerBoardDiv.replaceChildren();
         humanBoard.currentBoard.forEach(row => {
             const numberOfCoordinates = row.length;
             for (let i = 0; i < numberOfCoordinates; i++) {
                 const square = document.createElement("div");
                 const squareCoordinates = JSON.stringify(row[i]);
                 square.dataset.coordinate = squareCoordinates;
+                if (row[i][1] === "NH") {
+                    square.style.backgroundColor = "#feb05a";
+                    square.style.border = "solid black";
+                }
                 playerBoardDiv.append(square);
             };
         });
@@ -53,7 +60,43 @@ function screenController() {
                 computerBoardDiv.append(square);
             };
         });
+        if (placingShipsPhase === true) {
+            renderPlacingShips();
+        }
     }
+
+    const renderPlacingShips = () =>  {
+        placingShipsPhase = true;
+        const rotateButton = document.querySelector(".rotate-btn");
+        rotateButton.addEventListener("click", switchShipDirection);
+        const playerBoardSquares = playerBoardDiv.children;
+        Array.from(playerBoardSquares).forEach(square => {
+            const squareCoordinate = JSON.parse(square.dataset.coordinate);
+            square.addEventListener("mouseover", () => {
+                if (currentShipToPlace === undefined) {
+                    placingShipsPhase = false;
+                    return;
+                }
+                addHighlihtPlacing(square);
+            });
+            square.addEventListener("mouseout", () => {
+                if (currentShipToPlace === undefined) {
+                    return;
+                }
+                removeHighlihtPlacing(square);
+            });
+            square.addEventListener("click", () => {
+                if (currentShipToPlace === undefined) {
+                    placingShipsPhase = false;
+                    placeShipDiv.innerText = "all ships have been placed, start the game!"
+                    return
+                }
+                humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
+                updateScreen();
+                switchShips(currentShipToPlace);
+            });
+        });
+    };
 
     const addHighlihtPlacing = (squareHigh) => {
         const square = squareHigh;
@@ -116,11 +159,6 @@ function screenController() {
 
     const removeHighlihtPlacing = (squareHigh) => {
         const square = squareHigh;
-        const shipLength = currentShipToPlace.length;
-        const coordinate = square.dataset.coordinate;
-        // if (coordinate === `[9,"G"]` && currentShipToPlace.length === 5) {
-        //     return
-        // }
         if ((square.dataset.coordinate === `[9,"G"]` && currentShipToPlace.length === 5) || 
             (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 5 || (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 4)) ||
             (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 5 || (square.dataset.coordinate === `[9,"I"]` && currentShipToPlace.length === 4) ||
@@ -156,37 +194,9 @@ function screenController() {
         }
     }
 
-    const renderPlacingShips = () =>  {
-        const rotateButton = document.querySelector(".rotate-btn");
-        rotateButton.addEventListener("click", switchShipDirection);
-        const playerBoardSquares = playerBoardDiv.children;
-        Array.from(playerBoardSquares).forEach(square => {
-            const squareCoordinate = JSON.parse(square.dataset.coordinate);
-            square.addEventListener("mouseover", () => {
-                if (currentShipToPlace === undefined) {
-                    return;
-                }
-                addHighlihtPlacing(square);
-            });
-            square.addEventListener("mouseout", () => {
-                if (currentShipToPlace === undefined) {
-                    return;
-                }
-                removeHighlihtPlacing(square);
-            });
-            square.addEventListener("click", () => {
-                if (currentShipToPlace === undefined) {
-                    placeShipDiv.innerText = "all ships have been placed, start the game smartass"
-                    return
-                }
-                humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
-                switchShips(currentShipToPlace);
-            });
-        });
-    };
 
     updateScreen();
-    renderPlacingShips();
+    // renderPlacingShips();
     // game.playRound()
 }
 

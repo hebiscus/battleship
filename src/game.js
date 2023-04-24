@@ -4,8 +4,6 @@
 import { shipFactory } from './ship';
 import { gameBoardFactory } from './gameboard';
 import { playerFactory } from './player';
-import { renderBoard, renderPlacingShips } from '.';
-
 
 export function GameController() {
     const human = playerFactory("human");
