@@ -3,9 +3,6 @@
 /* eslint-disable import/prefer-default-export */
 // eslint-disable-next-line eol-last
 import './style.css';
-import { shipFactory } from './ship';
-import { gameBoardFactory } from './gameboard';
-import { playerFactory } from './player';
 import { GameController } from './game';
 
 function screenController() {
@@ -16,6 +13,7 @@ function screenController() {
     let currentShipDirection = "horizontal";
     game.createShips();
     let currentShipToPlace = game.shipsArray[0];
+    placeShipDiv.innerText = `Choose placement for your ${currentShipToPlace.shipType}`
     let placingShipsPhase = true;
     const humanBoard = game.boards[0];
     const computerBoard = game.boards[1];
@@ -26,6 +24,11 @@ function screenController() {
         const indexofPrevShip = game.shipsArray.findIndex(ship => ship === currentShip);
         currentShipToPlace = game.shipsArray[indexofPrevShip + 1];
     };
+
+    const nextShipToPlace = (currentShip) => {
+        const indexofPrevShip = game.shipsArray.findIndex(ship => ship === currentShip);
+        return game.shipsArray[indexofPrevShip + 1];
+    }
 
     const switchShipDirection = () => {
         if (currentShipDirection === "horizontal") {
@@ -47,6 +50,8 @@ function screenController() {
                 if (row[i][1] === "NH") {
                     square.style.backgroundColor = "#feb05a";
                     square.style.border = "solid black";
+                } else if (row[i][1] === "H") {
+                    square.style.backgroundColor = "red";
                 }
                 playerBoardDiv.append(square);
             };
@@ -92,6 +97,8 @@ function screenController() {
                 }
                 humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
                 updateScreen();
+                const nextShip = nextShipToPlace(currentShipToPlace);
+                placeShipDiv.innerText = `Choose placement for your ${nextShip.shipType}`;
                 switchShips(currentShipToPlace);
             });
         });
@@ -291,39 +298,11 @@ function screenController() {
         }
     }
 
-
     updateScreen();
     // game.playRound()
 }
 
 screenController();
-
-export function renderBoard(player, boardData) {
-    const humanBoard = document.querySelector(".player-board");
-    const computerBoard = document.querySelector(".computer-board");
-    
-    if (player === "human") {
-        boardData.forEach(row => {
-            const numberOfCoordinates = row.length;
-            for (let i = 0; i < numberOfCoordinates; i++) {
-                const square = document.createElement("div");
-                const squareCoordinates = JSON.stringify(row[i]);
-                square.dataset.coordinate = squareCoordinates;
-                humanBoard.append(square);
-            };
-        });
-    } else {
-        boardData.forEach(row => {
-            const numberOfCoordinates = row.length;
-            for (let i = 0; i < numberOfCoordinates; i++) {
-                const square = document.createElement("div");
-                const squareCoordinates = JSON.stringify(row[i]);
-                square.dataset.coordinate = squareCoordinates;
-                computerBoard.append(square);
-            };
-        });
-    };
-};
 
 
   
