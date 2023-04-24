@@ -27,7 +27,11 @@ function screenController() {
 
     const nextShipToPlace = (currentShip) => {
         const indexofPrevShip = game.shipsArray.findIndex(ship => ship === currentShip);
-        return game.shipsArray[indexofPrevShip + 1];
+        const nextType = game.shipsArray[indexofPrevShip + 1];
+        if (nextType === undefined) {
+            return "carrier";
+        } 
+        return nextType.shipType
     }
 
     const switchShipDirection = () => {
@@ -50,7 +54,7 @@ function screenController() {
                 if (row[i][1] === "NH") {
                     square.style.backgroundColor = "#feb05a";
                     square.style.border = "solid black";
-                } else if (row[i][1] === "H") {
+                } else if (row[i][1] === "H" && typeof row[i][0] !== "number") {
                     square.style.backgroundColor = "red";
                 }
                 playerBoardDiv.append(square);
@@ -96,9 +100,9 @@ function screenController() {
                     return;
                 }
                 humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
+                const nextShipType = nextShipToPlace(currentShipToPlace);
                 updateScreen();
-                const nextShip = nextShipToPlace(currentShipToPlace);
-                placeShipDiv.innerText = `Choose placement for your ${nextShip.shipType}`;
+                placeShipDiv.innerText = `Choose placement for your ${nextShipType}`;
                 switchShips(currentShipToPlace);
             });
         });
