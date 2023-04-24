@@ -62,11 +62,10 @@ function screenController() {
         });
         if (placingShipsPhase === true) {
             renderPlacingShips();
-        }
+        };
     }
 
     const renderPlacingShips = () =>  {
-        placingShipsPhase = true;
         const rotateButton = document.querySelector(".rotate-btn");
         rotateButton.addEventListener("click", switchShipDirection);
         const playerBoardSquares = playerBoardDiv.children;
@@ -77,19 +76,19 @@ function screenController() {
                     placingShipsPhase = false;
                     return;
                 }
-                addHighlihtPlacing(square);
+                addHighlihtPlacing(square, playerBoardSquares);
             });
             square.addEventListener("mouseout", () => {
                 if (currentShipToPlace === undefined) {
                     return;
                 }
-                removeHighlihtPlacing(square);
+                removeHighlihtPlacing(square, playerBoardSquares);
             });
             square.addEventListener("click", () => {
                 if (currentShipToPlace === undefined) {
                     placingShipsPhase = false;
-                    placeShipDiv.innerText = "all ships have been placed, start the game!"
-                    return
+                    placeShipDiv.innerText = "All ships have been placed, start the game!";
+                    return;
                 }
                 humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
                 updateScreen();
@@ -98,7 +97,7 @@ function screenController() {
         });
     };
 
-    const addHighlihtPlacing = (squareHigh) => {
+    const addHighlihtPlacing = (squareHigh, board) => {
         const square = squareHigh;
         if ((square.dataset.coordinate === `[9,"G"]` && currentShipToPlace.length === 5) || 
             (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 5 || (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 4)) ||
@@ -107,8 +106,8 @@ function screenController() {
             (square.dataset.coordinate === `[9,"J"]`)) {
             return;
         }
-        const secondSquare = square.nextSibling;
         if (currentShipDirection === "horizontal") {
+            const secondSquare = square.nextSibling;
             if (currentShipToPlace.length === 2) {
                 square.style.backgroundColor = "#feb05a"
                 secondSquare.style.backgroundColor = "#feb05a";
@@ -135,19 +134,57 @@ function screenController() {
                 fifthSquare.style.backgroundColor = "#feb05a";
             };
         } else {
+            const squareRow = JSON.parse(square.dataset.coordinate)[0];
+            const squareLetter = JSON.parse(square.dataset.coordinate)[1];
+            const arrayBoard = Array.from(board);
+            const secondSquare = arrayBoard.find(cord => 
+                JSON.parse(cord.dataset.coordinate)[0] === squareRow + 1 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter);
+            if (secondSquare === undefined) {
+                return
+            }
             if (currentShipToPlace.length === 2) {
                 square.style.backgroundColor = "#feb05a"
                 secondSquare.style.backgroundColor = "#feb05a";
             } else if (currentShipToPlace.length === 3) {
+                const thirdSquare = arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 2 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (thirdSquare === undefined) {
+                    return
+                }
                 square.style.backgroundColor = "#feb05a"
                 secondSquare.style.backgroundColor = "#feb05a";
                 thirdSquare.style.backgroundColor = "#feb05a"
             } else if (currentShipToPlace.length === 4) {
+                const thirdSquare =arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 2 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (thirdSquare === undefined) {
+                    return
+                }
+                const fourthSquare = arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 3 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (fourthSquare === undefined) {
+                    return
+                }
                 square.style.backgroundColor = "#feb05a";
                 secondSquare.style.backgroundColor = "#feb05a";
                 thirdSquare.style.backgroundColor = "#feb05a";
                 fourthSquare.style.backgroundColor = "#feb05a";
             } else {
+                const thirdSquare =arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 2 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (thirdSquare === undefined) {
+                    return
+                }
+                const fourthSquare = arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 3 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (fourthSquare === undefined) {
+                    return
+                }
+                const fifthSquare = arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 4 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (fifthSquare === undefined) {
+                    return
+                }
                 square.style.backgroundColor = "#feb05a";
                 secondSquare.style.backgroundColor = "#feb05a";
                 thirdSquare.style.backgroundColor = "#feb05a";
@@ -157,7 +194,7 @@ function screenController() {
         };
     }
 
-    const removeHighlihtPlacing = (squareHigh) => {
+    const removeHighlihtPlacing = (squareHigh, board) => {
         const square = squareHigh;
         if ((square.dataset.coordinate === `[9,"G"]` && currentShipToPlace.length === 5) || 
             (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 5 || (square.dataset.coordinate === `[9,"H"]` && currentShipToPlace.length === 4)) ||
@@ -166,37 +203,96 @@ function screenController() {
             (square.dataset.coordinate === `[9,"J"]`)) {
             return;
         }
-        const secondSquare = square.nextSibling;
-        if (currentShipToPlace.length === 2) {
-            square.style.backgroundColor = "white"
-            secondSquare.style.backgroundColor = "white";
-        } else if (currentShipToPlace.length === 3) {
-            const thirdSquare = square.nextSibling.nextSibling;
-            square.style.backgroundColor = "white"
-            secondSquare.style.backgroundColor = "white";
-            thirdSquare.style.backgroundColor = "white"
-        } else if (currentShipToPlace.length === 4) {
-            const fourthSquare = square.nextSibling.nextSibling.nextSibling;
-            const thirdSquare = square.nextSibling.nextSibling;
-            square.style.backgroundColor = "white";
-            secondSquare.style.backgroundColor = "white";
-            thirdSquare.style.backgroundColor = "white";
-            fourthSquare.style.backgroundColor = "white";
+        if (currentShipDirection === "horizontal") {
+            const secondSquare = square.nextSibling;
+            if (currentShipToPlace.length === 2) {
+                square.style.backgroundColor = "white"
+                secondSquare.style.backgroundColor = "white";
+            } else if (currentShipToPlace.length === 3) {
+                const thirdSquare = square.nextSibling.nextSibling;
+                square.style.backgroundColor = "white"
+                secondSquare.style.backgroundColor = "white";
+                thirdSquare.style.backgroundColor = "white"
+            } else if (currentShipToPlace.length === 4) {
+                const fourthSquare = square.nextSibling.nextSibling.nextSibling;
+                const thirdSquare = square.nextSibling.nextSibling;
+                square.style.backgroundColor = "white";
+                secondSquare.style.backgroundColor = "white";
+                thirdSquare.style.backgroundColor = "white";
+                fourthSquare.style.backgroundColor = "white";
+            } else {
+                const thirdSquare = square.nextSibling.nextSibling;
+                const fourthSquare = square.nextSibling.nextSibling.nextSibling;
+                const fifthSquare = square.nextSibling.nextSibling.nextSibling.nextSibling;
+                square.style.backgroundColor = "white";
+                secondSquare.style.backgroundColor = "white";
+                thirdSquare.style.backgroundColor = "white";
+                fourthSquare.style.backgroundColor = "white";
+                fifthSquare.style.backgroundColor = "white";
+            }
         } else {
-            const thirdSquare = square.nextSibling.nextSibling;
-            const fourthSquare = square.nextSibling.nextSibling.nextSibling;
-            const fifthSquare = square.nextSibling.nextSibling.nextSibling.nextSibling;
-            square.style.backgroundColor = "white";
-            secondSquare.style.backgroundColor = "white";
-            thirdSquare.style.backgroundColor = "white";
-            fourthSquare.style.backgroundColor = "white";
-            fifthSquare.style.backgroundColor = "white";
+            const squareRow = JSON.parse(square.dataset.coordinate)[0];
+            const squareLetter = JSON.parse(square.dataset.coordinate)[1];
+            const arrayBoard = Array.from(board);
+            const secondSquare = arrayBoard.find(cord => 
+                JSON.parse(cord.dataset.coordinate)[0] === squareRow + 1 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter);
+            if (secondSquare === undefined) {
+                return
+            }
+            if (currentShipToPlace.length === 2) {
+                square.style.backgroundColor = "white";
+                secondSquare.style.backgroundColor = "white";
+            } else if (currentShipToPlace.length === 3) {
+                const thirdSquare = arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 2 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (thirdSquare === undefined) {
+                    return
+                }
+                square.style.backgroundColor = "white"
+                secondSquare.style.backgroundColor = "white"
+                thirdSquare.style.backgroundColor = "white"
+            } else if (currentShipToPlace.length === 4) {
+                const thirdSquare =arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 2 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (thirdSquare === undefined) {
+                    return
+                }
+                const fourthSquare = arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 3 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (fourthSquare === undefined) {
+                    return
+                }
+                square.style.backgroundColor = "white"
+                secondSquare.style.backgroundColor = "white"
+                thirdSquare.style.backgroundColor = "white"
+                fourthSquare.style.backgroundColor = "white"
+            } else {
+                const thirdSquare =arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 2 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (thirdSquare === undefined) {
+                    return
+                }
+                const fourthSquare = arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 3 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (fourthSquare === undefined) {
+                    return
+                }
+                const fifthSquare = arrayBoard.find(cord => 
+                    JSON.parse(cord.dataset.coordinate)[0] === squareRow + 4 && JSON.parse(cord.dataset.coordinate)[1] === squareLetter)
+                if (fifthSquare === undefined) {
+                    return
+                }
+                square.style.backgroundColor = "white"
+                secondSquare.style.backgroundColor = "white"
+                thirdSquare.style.backgroundColor = "white"
+                fourthSquare.style.backgroundColor = "white"
+                fifthSquare.style.backgroundColor = "white"
+            };
         }
     }
 
 
     updateScreen();
-    // renderPlacingShips();
     // game.playRound()
 }
 
