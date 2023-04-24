@@ -10,6 +10,9 @@ function screenController() {
     const placeShipDiv = document.querySelector(".placement-div");
     const playerBoardDiv = document.querySelector(".player-board");
     const computerBoardDiv = document.querySelector(".computer-board");
+    const startButton = document.querySelector(".start-btn");
+    startButton.disabled = true;
+    startButton.addEventListener("click", renderGame);
     let currentShipDirection = "horizontal";
     game.createShips();
     let currentShipToPlace = game.shipsArray[0];
@@ -39,7 +42,7 @@ function screenController() {
             currentShipDirection = "vertical";
         } else {
             currentShipDirection = "horizontal";
-        }
+        };
     };
 
     const updateScreen = () => {
@@ -72,7 +75,7 @@ function screenController() {
         if (placingShipsPhase === true) {
             renderPlacingShips();
         };
-    }
+    };
 
     const renderPlacingShips = () =>  {
         const rotateButton = document.querySelector(".rotate-btn");
@@ -101,12 +104,19 @@ function screenController() {
                 }
                 humanBoard.placeShip(currentShipToPlace, squareCoordinate, currentShipDirection);
                 const nextShipType = nextShipToPlace(currentShipToPlace);
+                if (currentShipToPlace.length === 5) {
+                    startButton.disabled = false;
+                }
                 updateScreen();
                 placeShipDiv.innerText = `Choose placement for your ${nextShipType}`;
                 switchShips(currentShipToPlace);
             });
         });
     };
+
+    const renderGame = () => {
+
+    }
 
     const addHighlihtPlacing = (squareHigh, board) => {
         const square = squareHigh;

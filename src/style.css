@@ -64,6 +64,7 @@ p {
 .start-btn {
     width: 7%;
     height: 20%;
+    cursor: pointer;
 }
 
 #player-names {
