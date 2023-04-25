@@ -12,7 +12,7 @@ function screenController() {
     const computerBoardDiv = document.querySelector(".computer-board");
     const startButton = document.querySelector(".start-btn");
     startButton.disabled = true;
-    startButton.addEventListener("click", renderGame);
+    startButton.addEventListener("click", () => renderGame());
     let currentShipDirection = "horizontal";
     game.createShips();
     let currentShipToPlace = game.shipsArray[0];
@@ -59,6 +59,8 @@ function screenController() {
                     square.style.border = "solid black";
                 } else if (row[i][1] === "H" && typeof row[i][0] !== "number") {
                     square.style.backgroundColor = "red";
+                } else if (row[i][1] === "missed") {
+                    square.style.backgroundColor = "blue";
                 }
                 playerBoardDiv.append(square);
             };
@@ -69,6 +71,12 @@ function screenController() {
                 const square = document.createElement("div");
                 const squareCoordinates = JSON.stringify(row[i]);
                 square.dataset.coordinate = squareCoordinates;
+                if (row[i][1] === "H" && typeof row[i][0] !== "number") {
+                    square.style.backgroundColor = "red";
+                    square.style.border = "solid black";
+                } else if (row[i][1] === "missed") {
+                    square.style.backgroundColor = "blue";
+                }
                 computerBoardDiv.append(square);
             };
         });
@@ -85,7 +93,6 @@ function screenController() {
             const squareCoordinate = JSON.parse(square.dataset.coordinate);
             square.addEventListener("mouseover", () => {
                 if (currentShipToPlace === undefined) {
-                    placingShipsPhase = false;
                     return;
                 }
                 addHighlihtPlacing(square, playerBoardSquares);
@@ -115,7 +122,16 @@ function screenController() {
     };
 
     const renderGame = () => {
-
+        // const humanPlayer = game.players[0];
+        // const computerPlayer = game.players[1];
+        const computerSquares = Array.from(computerBoardDiv.children);
+        computerSquares.forEach(square => {
+            const coordinate = JSON.parse(square.dataset.coordinate);
+            square.addEventListener("click", () => {
+                game.playRound(coordinate);
+                updateScreen();
+            });
+        });
     }
 
     const addHighlihtPlacing = (squareHigh, board) => {

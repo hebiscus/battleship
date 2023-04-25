@@ -11,8 +11,9 @@ export function GameController() {
     const players = [human, computer]
     const humanBoard = gameBoardFactory();
     const computerBoard = gameBoardFactory();
+    
 
-    const boards = [humanBoard, computerBoard]
+    const boards = [humanBoard, computerBoard];
     const activePlayer = players[0];
     const shipsArray = [];
 
@@ -26,10 +27,14 @@ export function GameController() {
         return shipsArray;
     }
 
-    const playRound = () => {
+    const playRound = (coordinate) => {
+        human.attack(computerBoard.currentBoard, coordinate);
+        computerBoard.receiveAttack(coordinate);
+        console.log(computerBoard.currentBoard);
+        const attackedByComputer = computer.attack(humanBoard);
+        humanBoard.receiveAttack(attackedByComputer);
+        console.log(humanBoard.currentBoard);
     }
-    
-
     
     return {players, createShips, shipsArray, boards, playRound}
 }

@@ -18,10 +18,6 @@ export const playerFactory = (name) => {
     return {name, attack};
 };
 
-function switchPlayer() {
-
-}
-
 function findEmptyCoordinates(enemyboard) {
     const empty = [];
     enemyboard.currentBoard.forEach(row => {
