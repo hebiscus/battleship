@@ -10,9 +10,9 @@ export const playerFactory = (name) => {
             return coordinate;
         }
         const emptyCoordinates = findEmptyCoordinates(enemyboard);
-        const numberOfEmptyCoordinates = emptyCoordinates.length;
-        const randomChoice = Math.floor(Math.random() * numberOfEmptyCoordinates);
-        return emptyCoordinates[randomChoice];
+        const randomRow = Math.floor(Math.random() * emptyCoordinates.length);
+        const randomCoord = Math.floor(Math.random() * emptyCoordinates[randomRow].length);
+        return emptyCoordinates[randomRow][randomCoord];
     };
     
     return {name, attack};
@@ -21,7 +21,10 @@ export const playerFactory = (name) => {
 function findEmptyCoordinates(enemyboard) {
     const empty = [];
     enemyboard.currentBoard.forEach(row => {
-        const notAttacked = row.find(coordinate => (coordinate[1] !== "H") || (coordinate[1] !== "missed"));
+        const notAttacked = row.filter(coordinate => (coordinate[1] !== "H") && (coordinate[1] !== "missed"));
+        if (notAttacked.length === 0) {
+            return;
+        }
         empty.push(notAttacked);
     })
     return empty;

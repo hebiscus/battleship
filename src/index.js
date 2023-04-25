@@ -122,8 +122,6 @@ function screenController() {
     };
 
     const renderGame = () => {
-        // const humanPlayer = game.players[0];
-        // const computerPlayer = game.players[1];
         const computerSquares = Array.from(computerBoardDiv.children);
         computerSquares.forEach(square => {
             const coordinate = JSON.parse(square.dataset.coordinate);
