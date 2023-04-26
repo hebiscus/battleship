@@ -12,16 +12,22 @@ function screenController() {
     const computerBoardDiv = document.querySelector(".computer-board");
     const startButton = document.querySelector(".start-btn");
     startButton.disabled = true;
-    startButton.addEventListener("click", () => renderGame());
+    startButton.addEventListener("click", () => switchGameOn());
     let currentShipDirection = "horizontal";
     game.createShips();
     let currentShipToPlace = game.shipsArray[0];
-    placeShipDiv.innerText = `Choose placement for your ${currentShipToPlace.shipType}`
+    placeShipDiv.innerText = `Choose placement for your ${currentShipToPlace.shipType}`;
+    let gamePhase = false;
     let placingShipsPhase = true;
     const humanBoard = game.boards[0];
     const computerBoard = game.boards[1];
     humanBoard.createBoard();
     computerBoard.createBoard();
+
+    const switchGameOn = () => {
+        gamePhase = true;
+        updateScreen();
+    }
     
     const switchShips = (currentShip) => {
         const indexofPrevShip = game.shipsArray.findIndex(ship => ship === currentShip);
@@ -82,6 +88,9 @@ function screenController() {
         });
         if (placingShipsPhase === true) {
             renderPlacingShips();
+        };
+        if (gamePhase === true) {
+            renderGame();
         };
     };
 
