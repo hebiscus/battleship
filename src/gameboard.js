@@ -119,19 +119,34 @@ export const gameBoardFactory = () => {
      const receiveAttack = function(coordinate) {
         const coordinateRow = coordinate[0];
         const coordinateValue = coordinate[1]; 
-        console.log(coordinate);
-        const columnNumbers = ["A","B","C", "D", "E", "F", "G", "H", "I", "J"];
-        const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);
-        const coordinateOnBoard = this.currentBoard[coordinateRow][coordinateBoardIndex];
-        if (coordinateOnBoard[1].includes("NH")) {
-            coordinateOnBoard[1] = "H";            
-            const hitShip = ships.find(ship => ship.shipType === coordinateOnBoard[0]);
+        if (coordinateValue.includes("NH")) {
+            const foundRow = [];
+            this.currentBoard.forEach((row, index )=> {
+                const filter = row.find(coordinate => coordinate[0] === coordinateRow && coordinate[1] === coordinateValue);
+                if (filter !== undefined) {
+                    foundRow.push(index);
+                }
+            })
+            const rowOnBoard = foundRow[0];
+            const valueOnBoard = this.currentBoard[rowOnBoard].findIndex(coordinate => coordinate[1] === coordinateValue);
+            const coordinateOnBoard = this.currentBoard[rowOnBoard][valueOnBoard];
+            coordinateOnBoard[1] = "H";          
+            const hitShip = ships.find(ship => ship.shipType === coordinateRow);
             hitShip.addHit();
             hitShip.isSunk();
             hitShip.changeLength();
         } else {
-            coordinateOnBoard[1] = "missed";  
-            saveMissedAttacks(coordinate);
+            const columnNumbers = ["A","B","C", "D", "E", "F", "G", "H", "I", "J"];
+            const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);
+            const coordinateOnBoard = this.currentBoard[coordinateRow][coordinateBoardIndex];
+            // if (coordinateOnBoard[1].includes("NH")) {
+            //     coordinateOnBoard[1] = "H";            
+            //     const hitShip = ships.find(ship => ship.shipType === coordinateOnBoard[0]);
+            //     hitShip.addHit();
+            //     hitShip.isSunk();
+            //     hitShip.changeLength();
+                coordinateOnBoard[1] = "missed";  
+                saveMissedAttacks(coordinate);
         };
      };
 
