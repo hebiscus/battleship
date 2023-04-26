@@ -128,6 +128,7 @@ export const gameBoardFactory = () => {
                 }
             })
             const rowOnBoard = foundRow[0];
+            
             const valueOnBoard = this.currentBoard[rowOnBoard].findIndex(coordinate => coordinate[1] === coordinateValue);
             const coordinateOnBoard = this.currentBoard[rowOnBoard][valueOnBoard];
             coordinateOnBoard[1] = "H";          

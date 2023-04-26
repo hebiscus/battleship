@@ -29,13 +29,13 @@ describe("placing a ship on the board", () => {
     it("horizontal ship within the board is properly placed", () => {
         testBoard.placeShip(perfectShip, [3,"A"], "horizontal");
         const boardPlaces = [testBoard.currentBoard[3][0], testBoard.currentBoard[3][1], testBoard.currentBoard[3][2]];
-        expect(boardPlaces).toEqual([[perfectShip.shipType, "NH"], [perfectShip.shipType, "NH"], [perfectShip.shipType, "NH"]])
+        expect(boardPlaces).toEqual([[perfectShip.shipType, "NH-0"], [perfectShip.shipType, "NH-1"], [perfectShip.shipType, "NH-2"]])
     });
 
     it("vertical ship within the board is properly placed", () => {
         testBoard.placeShip(perfectShip, [3,"B"], "vertical");
         const boardPlaces = [testBoard.currentBoard[3][1], testBoard.currentBoard[4][1], testBoard.currentBoard[5][1]];
-        expect(boardPlaces).toEqual([["destroyer", "NH"], ["destroyer", "NH"], ["destroyer", "NH"]]);
+        expect(boardPlaces).toEqual([["destroyer", "NH-0"], ["destroyer", "NH-1"], ["destroyer", "NH-2"]]);
     });
 
     it("ship that doesn't fit on the board horizontally cannot be placed", () => {
@@ -95,7 +95,7 @@ describe("receiving an attack", () => {
    const destroyer = shipFactory(3,0,"destroyer");
    const patrolBoat = shipFactory(3, 0, "patrol boat");
    const submarine = shipFactory(3, 0, "submarine");
-   const sunkingShip = shipFactory(2,1," patrol boat");
+   const sunkingShip = shipFactory(2,1,"bah");
 
     beforeEach(() => {
         testBoard.createBoard();
@@ -107,12 +107,6 @@ describe("receiving an attack", () => {
     });
 
     it("logs H for a hit on a ship's coordinate", () => {
-        testBoard.placeShip(destroyer, [6,"C"], "vertical");
-        testBoard.receiveAttack([6,"C"]);
-        expect(testBoard.currentBoard[6][2]).toEqual([destroyer.shipType, "H"]);
-    });
-
-    it.only("logs H for a hit on a ship's coordinate", () => {
         testBoard.placeShip(destroyer, [6,"C"], "vertical");
         testBoard.receiveAttack(["destroyer","NH-2"]);
         expect(testBoard.currentBoard[8][2]).toEqual([destroyer.shipType, "H"]);
@@ -126,19 +120,19 @@ describe("receiving an attack", () => {
 
     it("changes ship's length after a hit", () => {
         testBoard.placeShip(patrolBoat, [3,"A"], "horizontal");
-        testBoard.receiveAttack([3,"B"]);
+        testBoard.receiveAttack(["patrol boat", "NH-2"]);
         expect(patrolBoat.length).toBe(2);
     });
 
     it("changes ship's hit count after it's been hit", () => {
         testBoard.placeShip(submarine, [8,"D"], "horizontal");
-        testBoard.receiveAttack([8,"E"]);
+        testBoard.receiveAttack(["submarine","NH-1"]);
         expect(submarine.hits).toBe(1);
     });
 
     it("changes ship's sinkStatus when the received hit sunked it", () => {
         testBoard.placeShip(sunkingShip, [1,"H"], "horizontal");
-        testBoard.receiveAttack([1,"I"]);
+        testBoard.receiveAttack(["bah", "NH-0"]);
         expect(sunkingShip.sinkStatus).toBeTruthy();
     });
 });
