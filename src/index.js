@@ -54,7 +54,7 @@ function screenController() {
                 const square = document.createElement("div");
                 const squareCoordinates = JSON.stringify(row[i]);
                 square.dataset.coordinate = squareCoordinates;
-                if (row[i][1] === "NH") {
+                if (row[i][1].includes("NH")) {
                     square.style.backgroundColor = "#feb05a";
                     square.style.border = "solid black";
                 } else if (row[i][1] === "H" && typeof row[i][0] !== "number") {

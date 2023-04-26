@@ -32,7 +32,7 @@ export const gameBoardFactory = () => {
             const coordinateRow = shipCoordinates[i][0];
             const coordinateColumn = shipCoordinates[i][1];
             const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn);
-            this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, "NH"];
+            this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, `NH-${i}`];
         }; 
         saveShips.call(this, ship);
     }
@@ -119,10 +119,7 @@ export const gameBoardFactory = () => {
      const receiveAttack = function(coordinate) {
         const coordinateRow = coordinate[0];
         const coordinateValue = coordinate[1]; 
-        if (coordinateValue === "missed") {
-            console.log("ship is there already");
-            throw "hey, you can't attack here"
-        }
+        console.log(coordinate);
         const columnNumbers = ["A","B","C", "D", "E", "F", "G", "H", "I", "J"];
         const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);
         const coordinateOnBoard = this.currentBoard[coordinateRow][coordinateBoardIndex];

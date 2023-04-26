@@ -4,7 +4,7 @@ import { gameBoardFactory } from "./gameboard";
 
 
 it("player attacking returns the same coordinate", () => {
-    const babyPlayer = playerFactory("player");
+    const babyPlayer = playerFactory("human");
     const enemyBoard = gameBoardFactory();
     expect(babyPlayer.attack(enemyBoard, [3,"A"])).toEqual([3,"A"]);
 });
