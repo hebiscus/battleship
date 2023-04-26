@@ -140,12 +140,6 @@ export const gameBoardFactory = () => {
             const columnNumbers = ["A","B","C", "D", "E", "F", "G", "H", "I", "J"];
             const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);
             const coordinateOnBoard = this.currentBoard[coordinateRow][coordinateBoardIndex];
-            // if (coordinateOnBoard[1].includes("NH")) {
-            //     coordinateOnBoard[1] = "H";            
-            //     const hitShip = ships.find(ship => ship.shipType === coordinateOnBoard[0]);
-            //     hitShip.addHit();
-            //     hitShip.isSunk();
-            //     hitShip.changeLength();
                 coordinateOnBoard[1] = "missed";  
                 saveMissedAttacks(coordinate);
         };

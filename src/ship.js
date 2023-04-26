@@ -24,10 +24,6 @@ export const shipFactory = (length, hits, type, sinkStatus) => {
         }
         return this.sinkStatus;
     };
-
-    // const isValidType = (type) => {
-    //     return type === "carrier" || "battleship" || "destroyer" || "submarine" || "patrol boat"
-    // }
     
     return {
         length, 
