@@ -38,6 +38,16 @@ export function GameController() {
         computerBoard.receiveAttack(coordinate);
         const attackedByComputer = computer.attack(humanBoard);
         humanBoard.receiveAttack(attackedByComputer);
+        const winner = checkForWin();
+        return winner;
+    }
+
+    const checkForWin = () => {
+        if (computerBoard.areShipsSunk() === true) {
+            return computer.name;
+        } if (humanBoard.areShipsSunk() === true) {
+            return human.name;
+        }   
     }
     
     return {players, createShips, shipsArray, boards, playRound, populateComputer}

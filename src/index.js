@@ -144,7 +144,12 @@ function screenController() {
         computerSquares.forEach(square => {
             const coordinate = JSON.parse(square.dataset.coordinate);
             square.addEventListener("click", () => {
-                game.playRound(coordinate);
+                const playing = game.playRound(coordinate);
+                if (playing !== undefined) {
+                    gamePhase = false;
+                    alert(playing);
+                    return
+                };
                 updateScreen();
             });
         });

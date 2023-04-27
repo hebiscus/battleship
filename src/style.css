@@ -104,7 +104,6 @@ p {
 
 .player-board > div:hover {
     cursor: pointer;
-    /* background-color: #feb05a; */
 }
 
 .placing-hover:hover {
@@ -121,6 +120,7 @@ p {
 }
 
 .computer-board > div {
+    cursor: pointer;
     background-color: white;
 }
 
