@@ -23,6 +23,7 @@ function screenController() {
     const computerBoard = game.boards[1];
     humanBoard.createBoard();
     computerBoard.createBoard();
+    game.populateComputer();
 
     const switchGameOn = () => {
         gamePhase = true;
@@ -112,6 +113,14 @@ function screenController() {
                 }
                 removeHighlihtPlacing(square, playerBoardSquares);
             });
+            // if (!squareCoordinate[1].includes("NH")) {
+            //     square.addEventListener("mouseout", () => {
+            //         if (currentShipToPlace === undefined) {
+            //             return;
+            //         }
+            //         removeHighlihtPlacing(square, playerBoardSquares);
+            //     });
+            // };
             square.addEventListener("click", () => {
                 if (currentShipToPlace === undefined) {
                     placingShipsPhase = false;
@@ -126,7 +135,7 @@ function screenController() {
                 updateScreen();
                 placeShipDiv.innerText = `Choose placement for your ${nextShipType}`;
                 switchShips(currentShipToPlace);
-            });
+            })
         });
     };
 

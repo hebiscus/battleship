@@ -184,4 +184,13 @@ describe("returning whether all ships on a board are sunk", () => {
     });
 })
 
+it.skip("its probably a mistake", () => {
+    const computerBoard = gameBoardFactory();
+    const newShip = shipFactory(2,0,"destroyer");
+    const anotherSHip = shipFactory(5,0,"carrier")
+    computerBoard.createBoard();
+    // computerBoard.placeShip(newShip,[0,"A"], "horizontal");
+    const ships = [newShip, anotherSHip]
+    expect(computerBoard.populateWithRandom(ships)).toEqual("WAA");
+})
 

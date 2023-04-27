@@ -21,6 +21,44 @@ export const gameBoardFactory = () => {
         };
     };
 
+    // const populateWithRandom = function(ships) {
+    //     ships.forEach(ship => {
+    //         let randomCoordinate = getRandomCoordinate.call(this);
+    //         const randomDirection = getRandomDirection.call(this);
+    //         let placingShip = this.placeShip(ship, randomCoordinate, randomDirection)
+    //         while (placingShip instanceof Error) {
+    //             console.log("ok")
+    //             randomCoordinate = getRandomCoordinate();
+    //             placingShip = this.placeShip(ship, randomCoordinate, randomDirection);
+    //         }
+    //         console.log(this.ships)
+    //     })
+    // }
+
+    // function getRandomCoordinate() {
+    //     const randomRow = Math.floor(Math.random() * this.currentBoard.length);
+    //     const randomCoord = Math.floor(Math.random() * 11);
+    //     return this.currentBoard[randomRow][randomCoord];
+    // }
+
+    // function getRandomDirection() {
+    //     const directions = ["horizontal", "vertical"];
+    //     const randomChoice =  Math.floor(Math.random() * directions.length);
+    //     return directions[randomChoice];
+    // }
+
+    // function findEmptyCoordinates(enemyboard) {
+    //     const empty = [];
+    //     enemyboard.currentBoard.forEach(row => {
+    //         const notAttacked = row.filter(coordinate => (coordinate[1] !== "H") && (coordinate[1] !== "missed"));
+    //         if (notAttacked.length === 0) {
+    //             return;
+    //         }
+    //         empty.push(notAttacked);
+    //     })
+    //     return empty;
+    // };
+
     const placeShip = function(ship, coordinate, direction) {
         const startingPoint = isCoordinateValid.call(this, coordinate);
         const shipLength = ship.length;
