@@ -65,9 +65,10 @@ function screenController() {
                     square.style.backgroundColor = "#feb05a";
                     square.style.border = "solid black";
                 } else if (row[i][1] === "H" && typeof row[i][0] !== "number") {
-                    square.style.backgroundColor = "red";
+                    square.style.backgroundColor = "rgb(199 31 55)";
+                    square.style.border = "solid black";
                 } else if (row[i][1] === "missed") {
-                    square.style.backgroundColor = "blue";
+                    square.style.backgroundColor = "#2aa998";
                 }
                 playerBoardDiv.append(square);
             };
@@ -79,10 +80,10 @@ function screenController() {
                 const squareCoordinates = JSON.stringify(row[i]);
                 square.dataset.coordinate = squareCoordinates;
                 if (row[i][1] === "H" && typeof row[i][0] !== "number") {
-                    square.style.backgroundColor = "red";
+                    square.style.backgroundColor = "rgb(199 31 55)";
                     square.style.border = "solid black";
                 } else if (row[i][1] === "missed") {
-                    square.style.backgroundColor = "blue";
+                    square.style.backgroundColor = "#2aa998";
                 }
                 computerBoardDiv.append(square);
             };
