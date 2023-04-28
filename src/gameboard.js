@@ -167,13 +167,12 @@ export const gameBoardFactory = () => {
             })
             const rowOnBoard = foundRow[0];
             
-            const valueOnBoard = this.currentBoard[rowOnBoard].findIndex(coordinate => coordinate[1] === coordinateValue);
+            const valueOnBoard = this.currentBoard[rowOnBoard].findIndex(coordinate => coordinate[0] === coordinateRow && coordinate[1] === coordinateValue);
             const coordinateOnBoard = this.currentBoard[rowOnBoard][valueOnBoard];
             coordinateOnBoard[1] = "H";          
-            const hitShip = this.ships.find(ship => ship.shipType === coordinateRow);
+            const hitShip = ships.find(ship => ship.shipType === coordinateRow);
             hitShip.addHit();
             hitShip.isSunk();
-            // hitShip.changeLength();
         } else {
             const columnNumbers = ["A","B","C", "D", "E", "F", "G", "H", "I", "J"];
             const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);

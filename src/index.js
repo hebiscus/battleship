@@ -143,19 +143,20 @@ function screenController() {
         const computerSquares = Array.from(computerBoardDiv.children);
         computerSquares.forEach(square => {
             const coordinate = JSON.parse(square.dataset.coordinate);
-            if (typeof coordinate[0] !== "string" && coordinate[1] === "H" || coordinate[1] !== "missed") {
-                square.addEventListener("click", () => {
-                    const playing = game.playRound(coordinate);
-                    if (playing !== undefined) {
-                        gamePhase = false;
-                        startButton.disabled = true;
-                        alert(`${playing} has won!`);
-                        updateScreen();
-                        return
-                    };
+            if (coordinate[1] === "missed" || (typeof coordinate[0] === "string" && coordinate[1] === "H")){
+                return
+            } 
+            square.addEventListener("click", () => {
+                const playing = game.playRound(coordinate);
+                if (playing !== undefined) {
+                    gamePhase = false;
+                    startButton.disabled = true;
                     updateScreen();
-                });
-            };
+                    alert(`${playing} has won!`);
+                    return
+                };
+                updateScreen();
+            });
         });
     }
 
