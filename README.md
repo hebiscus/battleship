@@ -18,6 +18,8 @@ https://hebiscus.github.io/battleship/
 
 # What NEEDS to be improved (if I want to show it off and not get embarassed):
 
+- Computer is stupid. Doesn't try to hit adjacent squares to the coordinates that have been hit. It picks a random coordinate every time.
+
 - When it comes to placing ships horizontally highlight on hover doesn't work ideally. You can hover on already placed ships (during placing) and yoink colour from them. Issue doesn't affect ships placed vertically. Haven't investigated sufficiently.
 
 - Computers board has predeterminated ship placing ie. computer doesn't pick ship placement randomly. It's a massive blunder, but there's no word for it in the project requierements and my attempt at making it work failed miserably. HARD to fix.
