@@ -14,6 +14,20 @@ export function GameController() {
     const boards = [humanBoard, computerBoard];
     const activePlayer = players[0];
     const shipsArray = [];
+    const shipsForComputer = createShipsComputer();
+
+    const testShip = shipFactory(1,0,"i am test");
+
+    function createShipsComputer()  {
+        const array = [];
+        const patrolBoat = shipFactory(2,0, "patrol boat");
+        const sumbarine = shipFactory(3,0, "submarine");
+        const destroyer = shipFactory(3,0, "destroyer");
+        const battleship = shipFactory(4,0, "battleship");
+        const carrier = shipFactory(5,0, "carrier");
+        array.push(patrolBoat, sumbarine, destroyer, battleship, carrier)
+        return array;
+    }
 
     const createShips = () => {
         const patrolBoat = shipFactory(2,0, "patrol boat");
@@ -22,15 +36,14 @@ export function GameController() {
         const battleship = shipFactory(4,0, "battleship");
         const carrier = shipFactory(5,0, "carrier");
         shipsArray.push(patrolBoat, sumbarine, destroyer, battleship, carrier);
-        return shipsArray;
     };
 
     const populateComputer = () => {
-        computerBoard.placeShip(shipsArray[0], [2, "B"], "horizontal");
-        computerBoard.placeShip(shipsArray[1], [4, "D"], "vertical");
-        computerBoard.placeShip(shipsArray[2], [7, "J"], "vertical");
-        computerBoard.placeShip(shipsArray[3], [9, "A"], "horizontal");
-        computerBoard.placeShip(shipsArray[4], [3, "H"], "vertical");
+        computerBoard.placeShip(shipsForComputer[0], [2, "B"], "horizontal");
+        computerBoard.placeShip(shipsForComputer[1], [4, "D"], "vertical");
+        computerBoard.placeShip(shipsForComputer[2], [7, "J"], "vertical");
+        computerBoard.placeShip(shipsForComputer[3], [9, "A"], "horizontal");
+        computerBoard.placeShip(shipsForComputer[4], [3, "H"], "vertical");
     }
 
     const playRound = (coordinate) => {
@@ -44,9 +57,9 @@ export function GameController() {
 
     const checkForWin = () => {
         if (computerBoard.areShipsSunk() === true) {
-            return computer.name;
-        } if (humanBoard.areShipsSunk() === true) {
             return human.name;
+        } if (humanBoard.areShipsSunk() === true) {
+            return computer.name;
         }   
     }
     

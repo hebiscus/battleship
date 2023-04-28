@@ -143,18 +143,19 @@ function screenController() {
         const computerSquares = Array.from(computerBoardDiv.children);
         computerSquares.forEach(square => {
             const coordinate = JSON.parse(square.dataset.coordinate);
-            if (coordinate[1] !== "H" && coordinate[1] !== "missed") {
+            if (typeof coordinate[0] !== "string" && coordinate[1] === "H" || coordinate[1] !== "missed") {
                 square.addEventListener("click", () => {
                     const playing = game.playRound(coordinate);
                     if (playing !== undefined) {
                         gamePhase = false;
-                        alert(playing);
+                        startButton.disabled = true;
+                        alert(`${playing} has won!`);
+                        updateScreen();
                         return
                     };
                     updateScreen();
                 });
-            }
-            
+            };
         });
     }
 
@@ -353,7 +354,6 @@ function screenController() {
     }
 
     updateScreen();
-    // game.playRound()
 }
 
 screenController();

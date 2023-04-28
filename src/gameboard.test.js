@@ -173,9 +173,13 @@ describe("returning whether all ships on a board are sunk", () => {
 
     it("returns true if all ships are sunk", () => {
         testBoard.placeShip(sunkenShip, [5,"A"], "horizontal");
-        sunkenShip.sinkStatus = true;
+        // sunkenShip.sinkStatus = true;
         expect(testBoard.areShipsSunk()).toBeTruthy();
     });
+
+    // it.skip("return true after all ships sunk after attack", () => {
+
+    // })
 
     it("returns false if all ships on the board are not sunk", () => {
         testBoard.placeShip(lovelyShip, [3,"A"], "horizontal");

@@ -72,7 +72,7 @@ export const gameBoardFactory = () => {
             const coordinateIndex = this.currentBoard[coordinateRow].findIndex(coordinate => coordinate[1] === coordinateColumn);
             this.currentBoard[coordinateRow][coordinateIndex] = [ship.shipType, `NH-${i}`];
         }; 
-        saveShips.call(this, ship);
+        saveShips.call(this,ship);
     }
 
      const getShipCoordinates = function (shipLength, startingPoint, direction) {
@@ -151,7 +151,7 @@ export const gameBoardFactory = () => {
      };
 
      const saveShips = function(shipObject) {
-        this.ships.push(shipObject);
+        ships.push(shipObject);
      };
 
      const receiveAttack = function(coordinate) {
@@ -170,10 +170,10 @@ export const gameBoardFactory = () => {
             const valueOnBoard = this.currentBoard[rowOnBoard].findIndex(coordinate => coordinate[1] === coordinateValue);
             const coordinateOnBoard = this.currentBoard[rowOnBoard][valueOnBoard];
             coordinateOnBoard[1] = "H";          
-            const hitShip = ships.find(ship => ship.shipType === coordinateRow);
+            const hitShip = this.ships.find(ship => ship.shipType === coordinateRow);
             hitShip.addHit();
             hitShip.isSunk();
-            hitShip.changeLength();
+            // hitShip.changeLength();
         } else {
             const columnNumbers = ["A","B","C", "D", "E", "F", "G", "H", "I", "J"];
             const coordinateBoardIndex = columnNumbers.findIndex(value => value === coordinateValue);
@@ -188,8 +188,13 @@ export const gameBoardFactory = () => {
      };
 
      const areShipsSunk = function() {
-        const shipCount = this.ships.length;
-        const sunkenShips = this.ships.filter(ship => ship.sinkStatus === true);
+        const shipCount = ships.length;
+        // this.ships.forEach(ship => {
+        //     ship.isSunk()
+        // })
+        // console.log(this)
+        // console.log(this.ships);
+        const sunkenShips = ships.filter(ship => ship.sinkStatus === true);
         if (sunkenShips.length === shipCount) {
             return true;
         } 
