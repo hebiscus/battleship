@@ -143,15 +143,18 @@ function screenController() {
         const computerSquares = Array.from(computerBoardDiv.children);
         computerSquares.forEach(square => {
             const coordinate = JSON.parse(square.dataset.coordinate);
-            square.addEventListener("click", () => {
-                const playing = game.playRound(coordinate);
-                if (playing !== undefined) {
-                    gamePhase = false;
-                    alert(playing);
-                    return
-                };
-                updateScreen();
-            });
+            if (coordinate[1] !== "H" && coordinate[1] !== "missed") {
+                square.addEventListener("click", () => {
+                    const playing = game.playRound(coordinate);
+                    if (playing !== undefined) {
+                        gamePhase = false;
+                        alert(playing);
+                        return
+                    };
+                    updateScreen();
+                });
+            }
+            
         });
     }
 
